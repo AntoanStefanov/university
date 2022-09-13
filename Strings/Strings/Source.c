@@ -6,7 +6,7 @@ int main() {
 	char string[81];
 
 	printf("Enter string: ");
-	scanf_s("%s", string, 80);
+	scanf_s("%s", string, 81);
 	printf("String: %s\n", string);
 	if (!string) {
 		return -1;
