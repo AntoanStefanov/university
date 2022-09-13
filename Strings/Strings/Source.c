@@ -3,11 +3,10 @@
 #include <string.h>
 
 int main() {
-	char string[80];
+	char string[81];
 
 	printf("Enter string: ");
 	scanf_s("%s", string, 80);
-	string[79] = "\0";
 	printf("String: %s\n", string);
 	if (!string) {
 		return -1;
