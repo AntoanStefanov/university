@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <float.h>
 
 /*
 * TRAINING
@@ -71,12 +72,27 @@ typedef struct {
 	date expiryDate;
 } product;
 
+int checkCheapestProduct(product* products, int numberOfProducts) {
+	product cheapestProduct;
+	float cheapestProductPrice = FLT_MAX;
+	for (int num = 0; num < numberOfProducts; num++) {
+		product product = products[num];
+		float currentProductPrice = (product.retailPrice + product.tradePrice) / 2;
+		if (currentProductPrice < cheapestProductPrice) {
+			cheapestProductPrice = currentProductPrice;
+			cheapestProduct = product;
+		}
+	}
+	printf("Cheapest product at the moment is: %s. Price: %.2f", cheapestProduct.name, cheapestProductPrice);
+	return 0;
+}
+
 int main() {
 	int numberOfProducts;
 	printf("How many products will you insert? ");
 	int returnedValue = scanf("%d", &numberOfProducts);
 	
-	if (numberOfProducts <= 0) { // <= 0 NOT ONLY < 0. SOLVED THE BUFFER OVERRUN PROBLEM.
+	if (numberOfProducts <= 0) { // <= 0, NOT ONLY < 0. SOLVED THE BUFFER OVERRUN PROBLEM.
 		return -1;
 	}
 
@@ -85,21 +101,22 @@ int main() {
 	}
 
 	product* products = malloc(sizeof(product) * numberOfProducts);
-	//if (products == NULL) {
-		//return -1;
-	//}
+
+	if (products == NULL) {
+		return -1;
+	}
 
 	for (int num = 0; num < numberOfProducts; num++) {
 		product product;
-		printf("Product name ?");
+		printf("Product name? ");
 		if (scanf("%s", product.name) == 0) {
 			return -1;
 		};
-		printf("Product retail price ?");
+		printf("Product retail price? ");
 		if (scanf("%f", &product.retailPrice) == 0) {
 			return -1;
 		};
-		printf("Product trade price ?");
+		printf("Product trade price? ");
 		if (scanf("%f", &product.tradePrice) == 0) {
 			return -1;
 		};
@@ -152,15 +169,10 @@ int main() {
 			
 		
 		products[num] = product;
-
-		
-
-		printf("%s", date);
-
 	}
 
-	// product firstProduct = { "Bread", 1.90, 0.90, {14, 9, 2022}, {15, 9, 2022} };
-	// printf("Product: %s. Price: %f", firstProduct.name, firstProduct.retailPrice);
+
+	checkCheapestProduct(products, numberOfProducts);
 	free(products);
 	return 0;
 }
