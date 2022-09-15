@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <float.h>
+#include <time.h>
 
 /*
 * TRAINING
@@ -84,6 +85,47 @@ int checkCheapestProduct(product* products, int numberOfProducts) {
 		}
 	}
 	printf("Cheapest product at the moment is: %s. Price: %.2f", cheapestProduct.name, cheapestProductPrice);
+	return 0;
+}
+
+int checkExpiriedProducts(product* products, int numberOfProducts) {
+	for (int num = 0; num < numberOfProducts; num++) {
+		product product = products[num];
+
+		time_t rawtime;
+		struct tm* timeinfo;
+
+		time(&rawtime);
+		timeinfo = localtime(&rawtime);
+		int currentYear = timeinfo->tm_year + 1900, currentMonth = timeinfo->tm_mon + 1, currentDay = timeinfo->tm_mday;
+
+		// printf("Current local time and date: %s", asctime(timeinfo));
+		int expired = 0; // not expired at start.
+		int today = 0;
+		if (product.expiryDate.year < currentYear) {
+			expired = 1;
+		}
+		else if (product.expiryDate.year == currentYear) {
+			if (product.expiryDate.month < currentMonth) {
+				expired = 1;
+			}
+			else if (product.expiryDate.month == currentMonth) {
+				if (product.expiryDate.day < currentDay) {
+					expired = 1;
+				}
+				else if (product.expiryDate.day == currentDay) {
+					printf("Product %s is expiring today.\n", product.name);
+					today = 1;
+				}
+			}
+		}
+
+		if (expired && !today) {
+			printf("Product %s has expiried.\n", product.name);
+
+		}
+	}
+
 	return 0;
 }
 
@@ -173,6 +215,7 @@ int main() {
 
 
 	checkCheapestProduct(products, numberOfProducts);
+	checkExpiriedProducts(products, numberOfProducts);
 	free(products);
 	return 0;
 }
