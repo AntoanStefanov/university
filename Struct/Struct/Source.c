@@ -76,12 +76,20 @@ int main() {
 	printf("How many products will you insert? ");
 	int returnedValue = scanf("%d", &numberOfProducts);
 	
+	if (numberOfProducts <= 0) { // <= 0 NOT ONLY < 0. SOLVED THE BUFFER OVERRUN PROBLEM.
+		return -1;
+	}
+
 	if (!returnedValue) {
 		return -1;
 	}
 
 	product* products = malloc(sizeof(product) * numberOfProducts);
-	for (int num = 0; num < numberOfProducts; num++) {
+	//if (products == NULL) {
+		//return -1;
+	//}
+
+	for (size_t num = 0; num < numberOfProducts; num++) {
 		product product;
 		printf("Product name ?");
 		if (scanf("%s", product.name) == 0) {
@@ -142,15 +150,17 @@ int main() {
 		product.expiryDate.month = expiry_date_arr[1];
 		product.expiryDate.year = expiry_date_arr[2];
 			
-
+		
 		products[num] = product;
+
+		
 
 		printf("%s", date);
 
 	}
 
-	product firstProduct = { "Bread", 1.90, 0.90, {14, 9, 2022}, {15, 9, 2022} };
-	printf("Product: %s. Price: %f", firstProduct.name, firstProduct.retailPrice);
+	// product firstProduct = { "Bread", 1.90, 0.90, {14, 9, 2022}, {15, 9, 2022} };
+	// printf("Product: %s. Price: %f", firstProduct.name, firstProduct.retailPrice);
 	free(products);
 	return 0;
 }
