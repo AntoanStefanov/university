@@ -64,7 +64,7 @@ typedef struct {
 } date;
 
 typedef struct {
-	char name[30];
+	char name[31];
 	float retailPrice; // na drebno
 	float tradePrice; // edro
 	date manufactureDate;
@@ -81,7 +81,6 @@ int main() {
 	}
 
 	product* products = malloc(sizeof(product) * numberOfProducts);
-
 	for (int num = 0; num < numberOfProducts; num++) {
 		product product;
 		printf("Product name ?");
@@ -152,5 +151,6 @@ int main() {
 
 	product firstProduct = { "Bread", 1.90, 0.90, {14, 9, 2022}, {15, 9, 2022} };
 	printf("Product: %s. Price: %f", firstProduct.name, firstProduct.retailPrice);
+	free(products);
 	return 0;
 }
