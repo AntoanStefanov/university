@@ -89,7 +89,7 @@ int main() {
 		//return -1;
 	//}
 
-	for (size_t num = 0; num < numberOfProducts; num++) {
+	for (int num = 0; num < numberOfProducts; num++) {
 		product product;
 		printf("Product name ?");
 		if (scanf("%s", product.name) == 0) {
