@@ -10,19 +10,29 @@ typedef struct {
 } student;
 
 
-void readNumberOfStudents(int* numberOfStudents) { // Pointer arg, bcs we need to change the value in main function.
+int readNumberOfStudents(int* numberOfStudents) { // Pointer arg, bcs we need to change the value in main function.
 	printf("How many students are in the group? ");
 	scanf_s("%d", numberOfStudents);
+
+	if (*numberOfStudents <= 0) {
+		printf("Invalid Students' Number.");
+		return 0;
+	}
+	return 1;
 }
 
 
 int main() {
 	int numberOfStudents;
-	readNumberOfStudents(&numberOfStudents);
-	if (numberOfStudents <= 0) {
-		printf("Invalid Student's Number.");
-		return -1;
+
+	if (!readNumberOfStudents(&numberOfStudents)) {
+		return 0;
 	}
+
+
+
+
+	
 
 	
 
