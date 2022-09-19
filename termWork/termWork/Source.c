@@ -30,7 +30,8 @@ int readNumberOfStudents(int* numberOfStudents) { // Pointer arg, bcs we need to
 }
 
 void readStudentsInformation(student* students, int numberOfStudents) {
-	
+	char studentGrades[256];
+
 	for (int currentStudentNum = 0; currentStudentNum < numberOfStudents; currentStudentNum++) {
 		printf("Student Number: #%d...\n", currentStudentNum + 1);
 
@@ -42,7 +43,14 @@ void readStudentsInformation(student* students, int numberOfStudents) {
 
 		printf("---Student's Faculty Number: "); scanf_s("%6s", students[currentStudentNum].facultyNumber, MAX_FACULTY_NUMBER_CHARS);
 
-		printf("Test");
+		(void)getchar(); // ignore returned char -> \n.
+
+		printf("---Student's 10 Grades | n1, n2, n3 ... : ");  fgets(studentGrades, sizeof(studentGrades), stdin);
+
+
+		for (int currentStudentGrade = 0; currentStudentGrade < MAX_GRADES_NUMBER; currentStudentGrade++) {
+
+		}
 
 		// students[currentStudentNum] = student;
 	}
