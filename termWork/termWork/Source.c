@@ -7,6 +7,7 @@ typedef struct {
 	char EGN[11];
 	char facultyNumber[7];
 	float grades[10];
+	float averageGrade;
 } student;
 
 
@@ -28,6 +29,9 @@ int main() {
 	if (!readNumberOfStudents(&numberOfStudents)) {
 		return 0;
 	}
+
+	student* students = malloc(sizeof(student) * numberOfStudents);
+
 
 
 
