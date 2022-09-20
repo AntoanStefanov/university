@@ -50,6 +50,7 @@ void readStudentsInformation(student* students, int numberOfStudents) {
 		int currentGradeNum = 0;
 		token = strtok_s(studentGrades, ", ", &next_token);
 		while (token && currentGradeNum < MAX_GRADES_NUMBER) {
+			// DO A GRADE(TOKEN) CHECK IF < 2 || > 6
 			students[currentStudentNum].grades[currentGradeNum] = atof(token);
 			currentGradeNum++;
 			token = strtok_s(NULL, ", ", &next_token);
@@ -60,7 +61,7 @@ void readStudentsInformation(student* students, int numberOfStudents) {
 
 void displayMenu() {
 	printf("\t\tMENU\n");
-	printf("1.---Create file with student's information.\n");
+	printf("1.---Create file with students' information.\n");
 	printf("2.---Calculate Average Grade For Every Student.\n");
 	printf("3.---Display Men's Faculty Numbers With More Than 5 Very Bad Grades.\n");
 	printf("4.---Display Menu.\n");
@@ -72,20 +73,64 @@ void createFile() {
 }
 
 
-void calculateAvgGrades() {
-	printf("Not working at moment\n");
+void calculateAvgGrades(student* students, int numberOfStudents) {
+	student student;
+	float avgGrade;
+
+	for (int currentStudentNum = 0; currentStudentNum < numberOfStudents; currentStudentNum++) {
+
+		float totalGrade = 0;
+		student = students[currentStudentNum];
+
+		for (int currentStudentGrade = 0; currentStudentGrade < MAX_GRADES_NUMBER; currentStudentGrade++) {
+			totalGrade += student.grades[currentStudentGrade];
+		}
+
+		avgGrade = totalGrade / MAX_GRADES_NUMBER;
+
+		printf("Faculty Number: %s. Name: %s. Average Grade: %.2f\n", student.facultyNumber, student.name, avgGrade);
+	}
 
 }
 
 
-void displayMenWithBadGrades() {
-	printf("Not working at moment\n");
+void displayMenWithBadGrades(student* students, int numberOfStudents) {
+	student student;
+	int noOne = 1;
 
+	for (int currentStudentNum = 0; currentStudentNum < numberOfStudents; currentStudentNum++) {
+		student = students[currentStudentNum];
+
+		char beforeLastChar = student.EGN[8];
+		int beforeLastDigit = atoi(&beforeLastChar);
+
+		if (beforeLastDigit % 2 == 0) { // MALE
+			float grade;
+			int counter = 0;
+
+			for (int currentStudentGrade = 0; currentStudentGrade < MAX_GRADES_NUMBER; currentStudentGrade++) {
+				grade = student.grades[currentStudentGrade];
+				if (grade < 3) {
+					counter++;
+				}
+			}
+
+			if (counter > 5) {
+				printf("Faculty Number: %s", student.facultyNumber);
+				noOne = 0;
+			}
+		}
+	}
+
+	if (noOne) {
+		printf("No Men With 5 Or More Very Bad Grades.\n");
+	}
 }
 
 int main() {
 	int numberOfStudents;
 	int menuNumber;
+
 	if (!readNumberOfStudents(&numberOfStudents)) {
 		return 0;
 	}
@@ -96,20 +141,19 @@ int main() {
 	displayMenu();
 
 	do {
+
 		printf("Choose from 1-5 Options: "); scanf_s("%d", &menuNumber); (void)getchar();
 
 		switch (menuNumber) {
-		case 1: createFile(); break;
-		case 2: calculateAvgGrades(); break;
-		case 3: displayMenWithBadGrades(); break;
-		case 4: displayMenu(); break;
-		case 5: printf("Goodbye! Have a nice day!\n"); break;
-		default: printf("No such function.\n");
+			case 1: createFile(); break;
+			case 2: calculateAvgGrades(students, numberOfStudents); break;
+			case 3: displayMenWithBadGrades(students, numberOfStudents); break;
+			case 4: displayMenu(); break;
+			case 5: printf("Goodbye! Have a nice day!\n"); break;
+			default: printf("No such function.\n");
 		}
 
 	} while (menuNumber != 5);
-
-
 
 	return 0;
 }
