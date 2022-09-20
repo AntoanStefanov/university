@@ -66,8 +66,37 @@ void displayMenu() {
 	printf("5.---EXIT\n");
 }
 
-void createFile() {
-	printf("Not working at moment\n");
+void createFile(student* students, int numberOfStudents) {
+	char fileName[31];
+	FILE* fp;
+
+	printf("File name(without ext.): "); gets(fileName);
+
+	strcat_s(fileName, sizeof fileName, ".txt\0");
+	errno_t err = fopen_s(&fp, fileName, "w");
+
+	if (err != 0) {
+		printf("Couldn't create the file.\n");
+		return;
+	}
+
+
+	if (fp) { // fp could be 0.
+		for (int currentStudentNum = 0; currentStudentNum < numberOfStudents; currentStudentNum++) {
+			(void)fprintf(fp, "Faculty Number: %s. Name: %s. EGN: %s. Grades: ...\n",
+				students[currentStudentNum].facultyNumber,
+				students[currentStudentNum].name,
+				students[currentStudentNum].EGN);
+		}
+
+		printf("File created successfully.\n");
+		fclose(fp);
+	}
+	else {
+		printf("Couldn't create the file.\n");
+	}
+
+	
 }
 
 void calculateAvgGrades(student* students, int numberOfStudents) {
@@ -119,7 +148,7 @@ void displayMenWithBadGrades(student* students, int numberOfStudents) {
 	}
 
 	if (noOne) {
-		printf("No Men With 5 Or More Very Bad Grades.\n");
+		printf("No Men Are With 5 Or More Very Bad Grades.\n");
 	}
 }
 
@@ -140,7 +169,7 @@ int main() {
 		printf("Choose from 1-5 Options: "); scanf_s("%d", &menuNumber); (void)getchar();
 
 		switch (menuNumber) {
-			case 1: createFile(); break;
+			case 1: createFile(students, numberOfStudents); break;
 			case 2: calculateAvgGrades(students, numberOfStudents); break;
 			case 3: displayMenWithBadGrades(students, numberOfStudents); break;
 			case 4: displayMenu(); break;
