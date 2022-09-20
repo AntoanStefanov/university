@@ -7,14 +7,12 @@
 #define MAX_FACULTY_NUMBER_CHARS 7
 #define MAX_GRADES_NUMBER 10
 
-
 typedef struct {
 	char name[MAX_NAME_CHARS];
 	char EGN[MAX_EGN_CHARS];
 	char facultyNumber[MAX_FACULTY_NUMBER_CHARS];
 	float grades[MAX_GRADES_NUMBER];
 } student;
-
 
 int readNumberOfStudents(int* numberOfStudents) { // Pointer arg, bcs we need to change the value in main function.
 	printf("How many students are in the group? ");
@@ -72,7 +70,6 @@ void createFile() {
 	printf("Not working at moment\n");
 }
 
-
 void calculateAvgGrades(student* students, int numberOfStudents) {
 	student student;
 	float avgGrade;
@@ -92,7 +89,6 @@ void calculateAvgGrades(student* students, int numberOfStudents) {
 	}
 
 }
-
 
 void displayMenWithBadGrades(student* students, int numberOfStudents) {
 	student student;
@@ -116,7 +112,7 @@ void displayMenWithBadGrades(student* students, int numberOfStudents) {
 			}
 
 			if (counter > 5) {
-				printf("Faculty Number: %s", student.facultyNumber);
+				printf("Faculty Number: %s\n", student.facultyNumber);
 				noOne = 0;
 			}
 		}
@@ -141,7 +137,6 @@ int main() {
 	displayMenu();
 
 	do {
-
 		printf("Choose from 1-5 Options: "); scanf_s("%d", &menuNumber); (void)getchar();
 
 		switch (menuNumber) {
