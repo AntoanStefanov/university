@@ -67,12 +67,14 @@ void displayMenu() {
 }
 
 void createFile(student* students, int numberOfStudents) {
-	char fileName[31];
+	char fileName[256];
+
 	FILE* fp;
 
-	printf("File name(without ext.): "); gets(fileName);
+	printf("File name(without ext.): "); fgets(fileName, sizeof fileName, stdin);
+	fileName[strcspn(fileName, "\n")] = 0; // remove trailing \n
+	strcat_s(&fileName, sizeof fileName, ".txt\0");
 
-	strcat_s(fileName, sizeof fileName, ".txt\0");
 	errno_t err = fopen_s(&fp, fileName, "w");
 
 	if (err != 0) {
@@ -179,5 +181,6 @@ int main() {
 
 	} while (menuNumber != 5);
 
+	free(students); // FREE ALLOCATED MEMORY IN HEAP.
 	return 0;
 }
