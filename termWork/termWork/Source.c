@@ -45,14 +45,20 @@ void readStudentsInformation(student* students, int numberOfStudents) {
 
 		(void)getchar(); // ignore returned char -> \n.
 
-		printf("---Student's 10 Grades | n1, n2, n3 ... : ");  fgets(studentGrades, sizeof(studentGrades), stdin);
+		printf("---Student's 10 Grades | n1, n2, n3, ... n10: ");  fgets(studentGrades, sizeof(studentGrades), stdin);
 
-
-		for (int currentStudentGrade = 0; currentStudentGrade < MAX_GRADES_NUMBER; currentStudentGrade++) {
-
+		// !!!!!!!!!!!!!!!!!!! SPLIT GRADES' STRING !!!!!!!!!!!!!!!!!!!!!!
+		char* next_token = NULL;
+		char* token;
+		int currentGradeNum = 0;
+		token = strtok_s(studentGrades, ", ", &next_token);
+		while (token && currentGradeNum < MAX_GRADES_NUMBER) {
+			students[currentStudentNum].grades[currentGradeNum] = atof(token);
+			currentGradeNum++;
+			token = strtok_s(NULL, ", ", &next_token);
 		}
+		// !!!!!!!!!!!!!!!!!!! SPLIT GRADES' STRING !!!!!!!!!!!!!!!!!!!!!!
 
-		// students[currentStudentNum] = student;
 	}
 
 	printf("asd");
