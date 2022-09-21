@@ -131,7 +131,7 @@ void calculateAvgGrades(student* students, int numberOfStudents) {
 void displayMenWithBadGrades(student* students, int numberOfStudents) {
 	student student;
 	int noOne = 1;
-
+	int menCounter = 1;
 	for (int currentStudentNum = 0; currentStudentNum < numberOfStudents; currentStudentNum++) {
 		student = students[currentStudentNum];
 
@@ -150,7 +150,11 @@ void displayMenWithBadGrades(student* students, int numberOfStudents) {
 			}
 
 			if (counter > 5) {
-				printf("Faculty Number: %s\n", student.facultyNumber);
+				if (noOne) {
+					printf("Faculty Numbers Of Men With 5 Or More Very Bad Grades:\n");
+				}
+				printf("%d. Faculty Number: %s\n", menCounter, student.facultyNumber);
+				menCounter++;
 				noOne = 0;
 			}
 		}
