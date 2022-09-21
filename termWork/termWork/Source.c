@@ -16,7 +16,7 @@ typedef struct {
 
 int readNumberOfStudents(int* numberOfStudents) { // Pointer arg, bcs we need to change the value in main function.
 	printf("How many students are in the group? ");
-	scanf_s("%d", numberOfStudents);
+	scanf_s("%d", numberOfStudents); (void)getchar();
 
 	if (*numberOfStudents <= 0) {
 		printf("Invalid Students' Number.");
@@ -27,14 +27,14 @@ int readNumberOfStudents(int* numberOfStudents) { // Pointer arg, bcs we need to
 
 void readStudentsInformation(student* students, int numberOfStudents) {
 	char studentGrades[256];
-
 	for (int currentStudentNum = 0; currentStudentNum < numberOfStudents; currentStudentNum++) {
 		printf("Student Number: #%d...\n", currentStudentNum + 1);
 
-		// %(30|10|6)s ==> WIDTH SPECIFICATION || MAX_(NAME|EGN|FACULTY_NUMBER)_CHARS -> BUFFER SIZE.
-		printf("---Student's Name: "); scanf_s("%30s", students[currentStudentNum].name, MAX_NAME_CHARS);
+		printf("---Student's Name: "); fgets(students[currentStudentNum].name, MAX_NAME_CHARS, stdin);
+		students[currentStudentNum].name[strcspn(students[currentStudentNum].name, "\n")] = 0; // remove trailing \n
 
-		printf("---Student's EGN : "); scanf_s("%10s", students[currentStudentNum].EGN, MAX_EGN_CHARS);
+		// %(10|6)s ==> WIDTH SPECIFICATION || MAX_(NAME|EGN|FACULTY_NUMBER)_CHARS -> BUFFER SIZE.
+		printf("---Student's EGN: "); scanf_s("%10s", students[currentStudentNum].EGN, MAX_EGN_CHARS);
 
 		printf("---Student's Faculty Number: "); scanf_s("%6s", students[currentStudentNum].facultyNumber, MAX_FACULTY_NUMBER_CHARS);
 
@@ -48,7 +48,6 @@ void readStudentsInformation(student* students, int numberOfStudents) {
 		int currentGradeNum = 0;
 		token = strtok_s(studentGrades, ", ", &next_token);
 		while (token && currentGradeNum < MAX_GRADES_NUMBER) {
-			// DO A GRADE(TOKEN) CHECK IF < 2 || > 6
 			students[currentStudentNum].grades[currentGradeNum] = atof(token);
 			currentGradeNum++;
 			token = strtok_s(NULL, ", ", &next_token);
@@ -67,7 +66,7 @@ void displayMenu() {
 }
 
 void createFile(student* students, int numberOfStudents) {
-	char fileName[256];
+	char fileName[31];
 
 	FILE* fp;
 
@@ -82,15 +81,14 @@ void createFile(student* students, int numberOfStudents) {
 		return;
 	}
 
-
 	if (fp) { // fp could be 0.
 		for (int currentStudentNum = 0; currentStudentNum < numberOfStudents; currentStudentNum++) {
-			(void)fprintf(fp, "Faculty Number: %s. Name: %s. EGN: %s. Grades: ...\n",
+			(void)fprintf(fp, "%d. Faculty Number: %s. Name: %s. EGN: %s. Grades: ...\n",
+				currentStudentNum + 1,
 				students[currentStudentNum].facultyNumber,
 				students[currentStudentNum].name,
 				students[currentStudentNum].EGN);
 		}
-
 		printf("File created successfully.\n");
 		fclose(fp);
 	}
