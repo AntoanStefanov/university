@@ -83,11 +83,20 @@ void createFile(student* students, int numberOfStudents) {
 
 	if (fp) { // fp could be 0.
 		for (int currentStudentNum = 0; currentStudentNum < numberOfStudents; currentStudentNum++) {
-			(void)fprintf(fp, "%d. Faculty Number: %s. Name: %s. EGN: %s. Grades: ...\n",
+			(void)fprintf(fp, "%d. Faculty Number: %s. Name: %s. EGN: %s. Grades: ",
 				currentStudentNum + 1,
 				students[currentStudentNum].facultyNumber,
 				students[currentStudentNum].name,
 				students[currentStudentNum].EGN);
+
+			for (int currentGradeNum = 0; currentGradeNum < MAX_GRADES_NUMBER; currentGradeNum++) {
+				if (currentGradeNum == 9) { // LAST GRADE.
+					fprintf(fp, "%.2f\n", students[currentStudentNum].grades[currentGradeNum]);
+				}
+				else {
+					fprintf(fp, "%.2f, ", students[currentStudentNum].grades[currentGradeNum]);
+				}
+			}
 		}
 		printf("File created successfully.\n");
 		fclose(fp);
