@@ -123,7 +123,8 @@ void calculateAvgGrades(student* students, int numberOfStudents) {
 
 		avgGrade = totalGrade / MAX_GRADES_NUMBER;
 
-		printf("Faculty Number: %s. Name: %s. Average Grade: %.2f\n", student.facultyNumber, student.name, avgGrade);
+
+		printf("%d. Faculty Number: %s. Name: %s. Average Grade: %.2f\n", currentStudentNum + 1, student.facultyNumber, student.name, avgGrade);
 	}
 
 }
