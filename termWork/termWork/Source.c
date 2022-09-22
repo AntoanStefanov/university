@@ -159,7 +159,6 @@ void displayMenWithBadGrades(student* students, int numberOfStudents) {
 			}
 		}
 	}
-
 	if (noOne) {
 		printf("No Men Are With 5 Or More Very Bad Grades.\n");
 	}
