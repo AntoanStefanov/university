@@ -105,7 +105,6 @@ void createFile(student* students, int numberOfStudents) {
 		printf("Couldn't create the file.\n");
 	}
 
-	
 }
 
 void calculateAvgGrades(student* students, int numberOfStudents) {
