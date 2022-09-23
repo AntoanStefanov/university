@@ -72,39 +72,33 @@ void createFile(student* students, int numberOfStudents) {
 
 	printf("File name(without ext.): "); fgets(fileName, sizeof fileName, stdin);
 	fileName[strcspn(fileName, "\n")] = 0; // remove trailing \n
-	strcat_s(&fileName, sizeof fileName, ".txt\0");
+	strcat_s(fileName, sizeof fileName, ".txt\0");
 
 	errno_t err = fopen_s(&fp, fileName, "w");
 
-	if (err != 0) {
+	if (err != 0 || !fp) { // fp could be 0.
 		printf("Couldn't create the file.\n");
 		return;
 	}
 
-	if (fp) { // fp could be 0.
-		for (int currentStudentNum = 0; currentStudentNum < numberOfStudents; currentStudentNum++) {
-			(void)fprintf(fp, "%d. Faculty Number: %s. Name: %s. EGN: %s. Grades: ",
-				currentStudentNum + 1,
-				students[currentStudentNum].facultyNumber,
-				students[currentStudentNum].name,
-				students[currentStudentNum].EGN);
+	for (int currentStudentNum = 0; currentStudentNum < numberOfStudents; currentStudentNum++) {
+		(void)fprintf(fp, "%d. Faculty Number: %s. Name: %s. EGN: %s. Grades: ",
+			currentStudentNum + 1,
+			students[currentStudentNum].facultyNumber,
+			students[currentStudentNum].name,
+			students[currentStudentNum].EGN);
 
-			for (int currentGradeNum = 0; currentGradeNum < MAX_GRADES_NUMBER; currentGradeNum++) {
-				if (currentGradeNum == 9) { // LAST GRADE.
-					fprintf(fp, "%.2f\n", students[currentStudentNum].grades[currentGradeNum]);
-				}
-				else {
-					fprintf(fp, "%.2f, ", students[currentStudentNum].grades[currentGradeNum]);
-				}
+		for (int currentGradeNum = 0; currentGradeNum < MAX_GRADES_NUMBER; currentGradeNum++) {
+			if (currentGradeNum == 9) { // LAST GRADE.
+				fprintf(fp, "%.2f\n", students[currentStudentNum].grades[currentGradeNum]);
+			}
+			else {
+				fprintf(fp, "%.2f, ", students[currentStudentNum].grades[currentGradeNum]);
 			}
 		}
-		printf("File created successfully.\n");
-		fclose(fp);
 	}
-	else {
-		printf("Couldn't create the file.\n");
-	}
-
+	printf("File created successfully.\n");
+	fclose(fp);
 }
 
 void calculateAvgGrades(student* students, int numberOfStudents) {
@@ -121,7 +115,6 @@ void calculateAvgGrades(student* students, int numberOfStudents) {
 		}
 
 		avgGrade = totalGrade / MAX_GRADES_NUMBER;
-
 
 		printf("%d. Faculty Number: %s. Name: %s. Average Grade: %.2f\n", currentStudentNum + 1, student.facultyNumber, student.name, avgGrade);
 	}
