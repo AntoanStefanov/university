@@ -118,7 +118,6 @@ void calculateAvgGrades(student* students, int numberOfStudents) {
 
 		printf("%d. Faculty Number: %s. Name: %s. Average Grade: %.2f\n", currentStudentNum + 1, student.facultyNumber, student.name, avgGrade);
 	}
-
 }
 
 void displayMenWithBadGrades(student* students, int numberOfStudents) {
