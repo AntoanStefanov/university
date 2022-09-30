@@ -180,7 +180,6 @@ int main() {
 			case 5: printf("Goodbye! Have a nice day!\n"); break;
 			default: printf("No such function.\n");
 		}
-
 	} while (menuNumber != 5);
 
 	free(students); // FREE ALLOCATED MEMORY IN HEAP.
