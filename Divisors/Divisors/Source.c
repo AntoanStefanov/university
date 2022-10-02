@@ -11,15 +11,28 @@ void divisors(unsigned n, size_t* z, unsigned* array) {
         if (n % i == 0)
             array[(*z)++] = i;
     }
+    printf("a");
 }
 
 int main() {
-    unsigned a[2] = {3, 5};
-    divisors(12, 2, a); // results in {2, 3, 4, 6}
-    divisors(25); // results in {5}
-    divisors(13); // results in NULL
+    unsigned arr[4];
+    unsigned b[1];
+    unsigned c[] = { NULL };
+    size_t z;
+    divisors(12, &z, arr); // results in {2, 3, 4, 6}
+    divisors(25, &z, b); // results in {5}
+    divisors(13, &z, c); // results in NULL
+    printf("check");
 
 
 
     return 0;
+}
+
+#include <stdbool.h>
+
+bool is_pangram(const char* str_in) {
+
+    //  <----  hajime!
+
 }
