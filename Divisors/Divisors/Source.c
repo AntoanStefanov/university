@@ -1,25 +1,25 @@
 #include <stddef.h>
-#include <string.h>
 #include <stdio.h>
 
-//  assign divisors to array[]
-//  set *length to the number of divisors
 
-void divisors(int* n) {
-    size_t* length;
-    unsigned array[];
 
-    int counter = 0;
-    for (unsigned i = 2; i < n; i++) {
-        if (n % 2 == 0) {
-            array[counter] = i;
-            counter++;
-        }
+void divisors(unsigned n, size_t* z, unsigned* array) {
+    *z = 0;
+
+    for (int i = 2; i <= (n / 2); i++)
+    {
+        if (n % i == 0)
+            array[(*z)++] = i;
     }
-    length = counter;
 }
-int x = 12, y = 25, z = 13;
-divisors(x); // results in {2, 3, 4, 6}
-divisors(y); // results in {5}
-divisors(z); // results in NULL
 
+int main() {
+    unsigned a[2] = {3, 5};
+    divisors(12, 2, a); // results in {2, 3, 4, 6}
+    divisors(25); // results in {5}
+    divisors(13); // results in NULL
+
+
+
+    return 0;
+}
