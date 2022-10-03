@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h> 
 
+
 void divisors(unsigned n, size_t* z, unsigned* array) {
     *z = 0;
 
@@ -19,19 +20,50 @@ void divisors(unsigned n, size_t* z, unsigned* array) {
 //  do not allocate memory for return string
 //  assign the value to the pointer "result"
 
+char* strrevv(char* str)
+{
+    if (!str || !*str)
+        return str;
+
+    int i = strlen(str) - 1, j = 0;
+
+    char ch;
+    while (i > j)
+    {
+        ch = str[i];
+        str[i] = str[j];
+        str[j] = ch;
+        i--;
+        j++;
+    }
+    return str;
+}
+
 void spin_words(const char* sentence, char* result) {
+    char* string_a = (char*)sentence;
     char* pch;
-    pch = strtok(sentence, " ");
+    pch = strtok(string_a, " ");
     while (pch != NULL)
     {
         if (strlen(pch) >= 5) {
-            strrev(pch);
+            // strrevv(pch);
+            int i = strlen(pch) - 1, j = 0;
+
+            char ch;
+            while (i > j)
+            {
+                ch = pch[i];
+                pch[i] = pch[j];
+                pch[j] = ch;
+                i--;
+                j++;
+            }
         }
+
         strcat(result, pch);
         strcat(result, " ");
         pch = strtok(NULL, " ");
     }
-    result[strlen(result) - 1] = '\0';
 }
 
 int main() {
@@ -47,8 +79,8 @@ int main() {
     // divisors func
 
     // spin_words func
-    char str[] = "Hey fellow warriors";
-    char res[20] = "";
+    const char str[] = "Hey fellow warriors";
+    char res[] = "";
     spin_words(str, res);
     // spin_words func
 
