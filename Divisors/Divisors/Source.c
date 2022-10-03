@@ -1,6 +1,7 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_NONSTDC_NO_WARNINGS
+
 #include <stddef.h>
-#include <stdio.h>
-#include <string.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h> 
@@ -15,31 +16,22 @@ void divisors(unsigned n, size_t* z, unsigned* array) {
     }
 }
 
-
 //  do not allocate memory for return string
 //  assign the value to the pointer "result"
 
 void spin_words(const char* sentence, char* result) {
-    char* next_token = NULL;
-    char* token;
-    token = strtok_s(sentence, " ", &next_token);
-    int indexCounter = 0;
-    while (token) {
-        if (strlen(token) >= 5) {
-            _strrev(token);
+    char* pch;
+    pch = strtok(sentence, " ");
+    while (pch != NULL)
+    {
+        if (strlen(pch) >= 5) {
+            strrev(pch);
         }
-        for (int i = 0; i < strlen(token); i++) {
-            result[indexCounter] = token[i];
-            indexCounter++;
-        }
-        result[indexCounter] = ' ';
-        indexCounter++;
-        token = strtok_s(NULL, " ", &next_token);
-
+        strcat(result, pch);
+        strcat(result, " ");
+        pch = strtok(NULL, " ");
     }
     result[strlen(result) - 1] = '\0';
-    printf("%s", result);
-    printf("A");
 }
 
 int main() {
@@ -55,8 +47,8 @@ int main() {
     // divisors func
 
     // spin_words func
-    char res[3000];
     char str[] = "Hey fellow warriors";
+    char res[20] = "";
     spin_words(str, res);
     // spin_words func
 
