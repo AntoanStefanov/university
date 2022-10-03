@@ -40,9 +40,12 @@ char* strrevv(char* str)
 }
 
 void spin_words(const char* sentence, char* result) {
-    char* string_a = (char*)sentence;
+    char copyy[100];
+    strcpy(copyy, sentence);
+    // creating copy bcs sentence is const.
     char* pch;
-    pch = strtok(string_a, " ");
+    pch = strtok(copyy, " ");
+    int resultIndex = 0;
     while (pch != NULL)
     {
         if (strlen(pch) >= 5) {
@@ -60,9 +63,21 @@ void spin_words(const char* sentence, char* result) {
             }
         }
 
-        strcat(result, pch);
-        strcat(result, " ");
+        for (unsigned pchIndex = 0; pchIndex < strlen(pch); pchIndex++) {
+            char charr = pch[pchIndex];
+            result[resultIndex] = charr;
+            resultIndex++;
+        }
+        result[resultIndex] = ' ';
+        resultIndex++;
+
+        //strcat(result, pch); this adds it AT THE END ON EVEN EMPTY ARR
+        //strcat(result, " ");
         pch = strtok(NULL, " ");
+    }
+    if (resultIndex > 0) {
+        resultIndex--;
+        result[resultIndex] = '\0'; // this removes all MMMM, allocated memory for other symbols.
     }
 }
 
@@ -79,10 +94,50 @@ int main() {
     // divisors func
 
     // spin_words func
-    const char str[] = "Hey fellow warriors";
-    char res[] = "";
-    spin_words(str, res);
+    //const char str[] = "";
+    const char* sentence = "This is another test";
+    char submitted[30 * 14 + 1];
+    spin_words(sentence, (char*)&submitted);
     // spin_words func
 
     return 0;
 }
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+//int main()
+//{
+//
+//    char s[100];
+//    scanf("%[^\n]%*c", &s);
+//
+//    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+//    printf("Hello, World!");
+//    printf("Aaa:%s", s);
+//    return 0;
+//}
+
+
+//int main()
+//{
+//
+//    char ch;
+//    scanf("%c", &ch);
+//
+//    char string[100];
+//    getchar();
+//    scanf("%[^\n]%*c", string);
+//
+//    char sentence[100];
+//    scanf("%[^\n]%*c", sentence);
+//
+//    printf("%c\n", ch);
+//    printf("%s\n", string);
+//    printf("%s", sentence);
+//
+//
+//    return 0;
+//}
