@@ -70,7 +70,6 @@ void spin_words(const char* sentence, char* result) {
         }
         result[resultIndex] = ' ';
         resultIndex++;
-
         //strcat(result, pch); this adds it AT THE END ON EVEN EMPTY ARR
         //strcat(result, " ");
         pch = strtok(NULL, " ");
