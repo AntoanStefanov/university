@@ -51,7 +51,6 @@ void spin_words(const char* sentence, char* result) {
         if (strlen(pch) >= 5) {
             // strrevv(pch);
             int i = strlen(pch) - 1, j = 0;
-
             char ch;
             while (i > j)
             {
@@ -98,7 +97,6 @@ int main() {
     char submitted[30 * 14 + 1];
     spin_words(sentence, (char*)&submitted);
     // spin_words func
-
     return 0;
 }
 
