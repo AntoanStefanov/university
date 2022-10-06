@@ -43,6 +43,7 @@ void spin_words(const char* sentence, char* result) {
     char copyy[100];
     strcpy(copyy, sentence);
     // creating copy bcs sentence is const.
+
     char* pch;
     pch = strtok(copyy, " ");
     int resultIndex = 0;
