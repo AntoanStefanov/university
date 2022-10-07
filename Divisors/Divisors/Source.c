@@ -26,8 +26,8 @@ char* strrevv(char* str)
         return str;
 
     int i = strlen(str) - 1, j = 0;
-
     char ch;
+
     while (i > j)
     {
         ch = str[i];
