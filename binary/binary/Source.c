@@ -18,6 +18,5 @@ size_t countBits(unsigned value)
 int main(void)
 {
     countBits(4);
-    printf("\n");
     countBits(1234);
 }
