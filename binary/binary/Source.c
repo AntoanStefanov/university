@@ -19,18 +19,18 @@ size_t secondSolveCountBits(unsigned value)
     size_t bit;
 
     bit = 0;
-    while (value)
-    {
+    while (value) {
         if (value % 2 != 0)
             bit++;
         value /= 2;
     }
-    return (bit);
+    return bit;
 }
 
 // Driver Code
 int main(void)
 {
+    secondSolveCountBits(4);
     countBits(4);
     countBits(1234);
 }
