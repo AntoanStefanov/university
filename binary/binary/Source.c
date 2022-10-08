@@ -17,8 +17,8 @@ size_t countBits(unsigned value)
 size_t secondSolveCountBits(unsigned value)
 {
     size_t bit;
-
     bit = 0;
+
     while (value) {
         if (value % 2 != 0)
             bit++;
