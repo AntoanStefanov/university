@@ -12,7 +12,7 @@ char* alphabet_position(const char* text) {
 
 int main() {
 	const char* input = "The sunset sets at twelve o' clock.";
-	char* ptr = alphabet_position(&input);
+	char* ptr = alphabet_position(input);
 	free(ptr);
 	return 0;
 }
