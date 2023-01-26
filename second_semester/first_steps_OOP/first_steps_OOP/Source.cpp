@@ -21,14 +21,25 @@ class Employee {
 	// private: NOT ACCESSIBLE OUTSIDE THE CLASS. (by default)
 	// protected: NOT ACCESSIBLE OUTSIDE THE CLASS AND ITS DERIVATIVES CLASSES.
 	// public: ACCESSIBLE EVERYWHERE.
-public:
 
-	// properties
+// encapsulate/hide the properties within this class, using private(now, we cannot access there properties outside the class):
+private:
+	// Encapsulated properties /private/hidden in the class/.
 	string name;
 	string company;
 	int age;
+	// How we access/interact with these properties, then?
+	// We access them through public methods. Getter/Setter methods.
 
-	// methods
+	// The idea of encapsulation is to make props/methods private, then
+	// whoever wants to access these properties outside of the class, will
+	// have to go through the exposed methods that have access to the properties.
+
+public:
+	// public properties
+	// ....
+
+	// public methods
 
 	// 1. constructor method does NOT have a return type.
 	// 2. constructor has the same name as the class that it belongs to. /class Employee -> constructor Employee/.
@@ -44,9 +55,49 @@ public:
 		cout << format("Name - {}. Company - {}. Age - {}", name, company, age) << endl;
 	}
 
+	// What we can do with these methods(getters/setters)?
+	// We can set special rules to interact with the encapsulated properties. One for the age.
+	void setName(string employeeName) {
+		name = employeeName;
+	}
+
+	string getName() {
+		return name;
+	}
+
+	void setCompany(string employeeCompany) {
+		company = employeeCompany;
+	}
+
+	string getCompany() {
+		return company;
+	}
+
+	void setAge(int employeeAge) {
+		// let's set an age rule for interacting with the encapsulated "age" property.
+
+		// Check. Validation rule.
+		if (employeeAge < 18) {
+			// Not applying the changes if age < 18.
+			return;
+		}
+
+		age = employeeAge;
+	}
+
+	int getAge() {
+		return age;
+	}
+
 };
 
 int main() {
+	// 4 most important concepts of OOP.
+	// 1. Encapsulation
+	// 2. Abstraction
+	// 3. Inheritance
+	// 4. Polymorphism
+
 	// Class objectName = Constructor(args...);
 	Employee employee1 = Employee("Antoan", "Company", 22); // calling the class constructor. Constructing the object itself.
 	employee1.introduce();
@@ -54,6 +105,12 @@ int main() {
 	Employee employee2 = Employee("Samantha", "Company", 19);
 	employee2.introduce();
 
+	employee1.setName("Tony");
+	cout << format("{}\n", employee1.getName());
 
+	employee1.setCompany("Fruteli");
+	cout << format("{}\n", employee1.getCompany());
 
+	employee1.setAge(11);
+	cout << format("{}\n", employee1.getAge());
 }
