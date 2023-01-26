@@ -21,7 +21,11 @@ class AbstractEmployee { // it could be name iEmployee for interfaceEmployee)
 	// https://stackoverflow.com/questions/2652198/difference-between-a-virtual-function-and-a-pure-virtual-function
 	// whoever class inherits this interface, should implement the methods defined,
 	// as virtual ....... = 0; . Otherwise they itself become abstract classes.
-	virtual void askForPromotion() = 0; // pure virtual function
+	virtual void askForPromotion() = 0; // pure virtual function |
+	// Showing that Employee class has a askForPromotion method, metaphorically,
+	// it shows that the phone has a camera button.
+	// others can use this method, without knowing of that functionality implemenation:
+	// Abstraction.
 
 	// https://www.geeksforgeeks.org/virtual-function-cpp/ this is just for virtual function, with NO '= 0' at the end.
 };
