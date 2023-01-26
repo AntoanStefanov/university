@@ -35,8 +35,6 @@ int main() {
         arr = temp;
     }
 
-    printf("hello");
-
     printf("%d", arr[0]);
 
     free(arr); // deallocate after finishing with dynamic arr.
