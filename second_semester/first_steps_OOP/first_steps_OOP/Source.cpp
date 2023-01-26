@@ -13,8 +13,22 @@ using std::format;
 // class -> PascalCase (ExampleClass)
 // members(properties and methods) -> camelCase (exampleVariable)
 
+// https://youtu.be/wN0x9eZLix4?t=3068 -> what is interface/abstractEmployee/ purpose.
+
+// Interface behavior using abstract class (Java, C# interface simulation)
+// https://www.w3schools.com/java/java_interface.asp
+class AbstractEmployee { // it could be name iEmployee for interfaceEmployee)
+	// https://stackoverflow.com/questions/2652198/difference-between-a-virtual-function-and-a-pure-virtual-function
+	// whoever class inherits this interface, should implement the methods defined,
+	// as virtual ....... = 0; . Otherwise they itself become abstract classes.
+	virtual void askForPromotion() = 0; // pure virtual function
+
+	// https://www.geeksforgeeks.org/virtual-function-cpp/ this is just for virtual function, with NO '= 0' at the end.
+};
+
+
 // class Employee { body }
-class Employee {
+class Employee : AbstractEmployee {
 	// EVERYTHING INSIDE CLASS IN C++ is PRIVATE BY DEFAULT !!
 	// we have 3 access modifiers: public, protected, private. (private by default).
 	// 
@@ -55,6 +69,18 @@ public:
 		cout << format("Name - {}. Company - {}. Age - {}", name, company, age) << endl;
 	}
 
+	// mandatory overwrite/implementation, otherwise this class becomes an abstract class too.
+	// Check AbstractEmployee abstract class. askForPromotion method is a pure virtual function.
+	void askForPromotion() {
+		// imagine complex implemenation.
+		if (age < 30) {
+			cout << format("You do NOT get a promotion, {}\n", name);
+			return;
+		}
+		cout << format("You get a promotion, {}\n", name);
+	}
+
+	// Setters/Getters
 	// What we can do with these methods(getters/setters)?
 	// We can set special rules to interact with the encapsulated properties. One for the age.
 	void setName(string employeeName) {
@@ -95,15 +121,25 @@ int main() {
 	// 4 most important concepts of OOP.
 	// 1. Encapsulation
 	// 2. Abstraction
+	// 
+	// --- Hiding complex implementation behind an action/interface that makes those things look simple.
+	// Button click for phone call is the action/interface that hides a complex implementation.
+	// You don't need to know about the complex implemention in order to use the phone interface.
+	// Hiding the complexity and creating a simple interface for user-usage is called 'Abstraction'.
+	// In C++, we can simulate the behavior of interface by using abstract class. (In Java and C# have concept of interface).
+	// 
 	// 3. Inheritance
 	// 4. Polymorphism
 
 	// Class objectName = Constructor(args...);
-	Employee employee1 = Employee("Antoan", "Company", 22); // calling the class constructor. Constructing the object itself.
+	Employee employee1 = Employee("Antoan", "Company", 30); // calling the class constructor. Constructing the object itself.
 	employee1.introduce();
+	employee1.askForPromotion();
+
 
 	Employee employee2 = Employee("Samantha", "Company", 19);
 	employee2.introduce();
+	employee2.askForPromotion();
 
 	employee1.setName("Tony");
 	cout << format("{}\n", employee1.getName());
