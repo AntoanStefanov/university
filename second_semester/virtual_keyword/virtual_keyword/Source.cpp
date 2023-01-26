@@ -50,5 +50,4 @@ int main()
 	// Non-virtual function, binded at compile time
 	basePointer->show(); // this calls the initial method
 
-	return 0;
 }
