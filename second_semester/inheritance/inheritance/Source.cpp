@@ -137,7 +137,7 @@ public:
 	}
 
 	void showLessonNum() {
-		cout << format("Lesson number {} is ready, created by {}\n", lessonNumber, getName());
+		cout << format("Lesson number {} is ready, created by {}, working in {}\n", lessonNumber, getName(), company);
 	}
 };
 
