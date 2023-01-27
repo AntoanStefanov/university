@@ -1,6 +1,10 @@
 #include <iostream>
 #include <format>
 
+// !!!!
+// https://stackoverflow.com/questions/860339/what-is-the-difference-between-public-private-and-protected-inheritance-in-c
+// !!!!
+
 // https://stackoverflow.com/questions/2282725/c-what-is-for -> :: double colon
 using std::string;
 using std::cout;
