@@ -14,8 +14,10 @@ class Employee : AbstractEmployee {
 
 private:
 	string name;
-	string company;
 	int age;
+
+protected:
+	string company;
 
 public:
 	Employee(string employeeName, string employeeCompany, int employeeAge) {
@@ -66,22 +68,45 @@ public:
 
 };
 
+// inheritance
+// Employee -> parent class /base/superclass/
+// Developer -> child class /derived/subclass/
+
+class Developer : Employee {
+private:
+	// encapsulation
+	string programmingLanguage;
+public:
+	Developer(string devName, string devCompany, int devAge, string devProgrammingLanguage)
+		:Employee(devName, devCompany, devAge) // calling the super class constructor.
+	{
+		programmingLanguage = devProgrammingLanguage;
+	}
+
+	void fixBug() {
+		// accessing the protected prop, easily. Using getter for the private prop, otherwise -> error.
+		cout << format("{} from {} company is fixing a bug.\n", getName(), company);
+	}
+
+	// getter
+	string getProgrammingLanguage() {
+		return programmingLanguage;
+	}
+
+
+};
+
 int main() {
-	Employee employee1 = Employee("Antoan", "Company", 30);
+	Employee employee1 = Employee("John", "Company", 30);
 	employee1.introduce();
 	employee1.askForPromotion();
 
+	Developer employee2 = Developer("Tony", "Fruteli", 22, "JS");
+	employee2.fixBug();
 
-	Employee employee2 = Employee("Samantha", "Company", 19);
-	employee2.introduce();
-	employee2.askForPromotion();
+	// employee2.introduce(); // | not working?
 
-	employee1.setName("Tony");
-	cout << format("{}\n", employee1.getName());
-
-	employee1.setCompany("Fruteli");
-	cout << format("{}\n", employee1.getCompany());
-
-	employee1.setAge(11);
-	cout << format("{}\n", employee1.getAge());
+	// https://youtu.be/wN0x9eZLix4?t=3490
+	// Employee emp;// -> Error "no default constructor exists for class "Employee" "
+	// Developer employee2; // Error "no default constructor exists for class "Developer" "
 }
