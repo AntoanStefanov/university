@@ -15,6 +15,15 @@ using std::format;
 
 // https://youtu.be/wN0x9eZLix4?t=3068 -> what is interface/abstractEmployee/ purpose.
 
+
+// WITH ABSTRACT CLASS(INTERFACE) WE SHOW THE OTHER DEVS WHAT THE EMPLOYEE CLASS IS CAPABLE OF!
+// JUST LIKE A INFO PAPER NEXT TO THE PHONE IN TELENOR! 
+// THE OTHER DEVS DO NOT CARE HOW THE FUNCTIONALITIES ARE IMPLEMENTED, THEY CARE WHAT FUNCTIONALITIES THE PHONE/CLASS HAS.
+// WITH THIS ABSTRACT CLASS WE JUST SHOW THE FUNCTIONALITIES, THAT OTHER DEVS CAN USE ON EMPLOYEE CLASS.
+// THEY DO NOT NEED TO KNOW HOW IT IS IMPLEMENTED. Maybe this could be seen as API of the Employee class!
+// we have askForPromotion method in API, how it is implemented, the other devs do NOT care.
+// They just want to see, the what the API is capable of.
+// 
 // Interface behavior using abstract class (Java, C# interface simulation)
 // https://www.w3schools.com/java/java_interface.asp
 class AbstractEmployee { // it could be name iEmployee for interfaceEmployee)
