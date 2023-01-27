@@ -10,10 +10,7 @@ using std::format;
 // https://www.geeksforgeeks.org/virtual-function-cpp/
 // https://stackoverflow.com/questions/2652198/difference-between-a-virtual-function-and-a-pure-virtual-function
 
-#include<iostream>
-using namespace std;
-
-class base {
+class Base {
 public:
 	virtual void print()
 	{
@@ -26,7 +23,7 @@ public:
 	}
 };
 
-class derived : public base {
+class Derived : public Base {
 public:
 	void print()
 	{
@@ -41,8 +38,8 @@ public:
 
 int main()
 {
-	base* basePointer; // define pointer with data type "base" class!
-	derived derivedClass;
+	Base* basePointer; // define pointer with data type "base" class!
+	Derived derivedClass;
 	basePointer = &derivedClass; // set pointer with data type "base", but value is derivedClass address/reference.
 
 	// Virtual function, binded at runtime.
