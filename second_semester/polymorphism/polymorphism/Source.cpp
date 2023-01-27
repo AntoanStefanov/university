@@ -60,6 +60,14 @@ public:
 	}
 
 	// https://rules.sonarsource.com/cpp/RSPEC-6009 -> string_view
+	// employeeName = employeeName.substr(0, 2); // -> error if const&
+
+	// string& employeeName -> reference to the object,
+	// string employeeName -> a copy of the object for the current function/execution context/.
+	// https://courses.washington.edu/css342/zander/css332/passby.html
+	// Use pass by reference when you are changing the parameter passed in by the client program.
+	// Use pass by value when when you are only "using" the parameter for some computation,
+	// not changing it for the client program.
 	void setName(string_view const& employeeName) {
 		name = employeeName;
 	}
@@ -155,6 +163,9 @@ int main() {
 
 	// https://rules.sonarsource.com/cpp/RSPEC-5827 -> auto
 	auto dev1 = Developer("Tony", "Fruteli", 22, "JS");
+
+	dev1.setName("Rori");
+
 	auto teacher1 = Teacher("Rony", "Amazon", 32, "Software development");
 
 	// Assigning a dev1 reference to a pointer with type Employee.
