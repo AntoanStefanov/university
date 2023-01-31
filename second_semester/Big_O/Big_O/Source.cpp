@@ -102,6 +102,45 @@ void quadraticTimeTricky(int n) {
 	cout << executedLineCounter << endl;
 }
 
+// Check indentation explanation below. in summarize:
+// Multiply loops on DIFFERENT levels and add those that are on same level. 
+// 
+// Here, f(n) = n * (3n + 2n) = 5n^2, most dominant term is n^2, so
+// O(n^2)
+void anotherQuadraticTime(int n) {
+	int i = 0;
+	while (i < n) {
+		int j = 0;
+		while (j < 3 * n) {
+			j++;
+		}
+		int k = 0;
+		while (k < 2 * n) {
+			k++;
+		}
+		i++;
+	}
+}
+
+// Check indentation explanation below. in summarize:
+// Multiply loops on DIFFERENT levels and add those that are on same level. 
+// 3n * (40 + n^3/2) = 120n + 3n^4/2 , n^4 is the most dominant term, so
+// O(f(n)) = O(n4)
+void anotherQuadraticTimeTwo(int n) {
+	int i = 0;
+	while (i < 3 * n) {
+		int j = 10;
+		while (j < 50) {
+			j++;
+		}
+		int k = 0;
+		while (k < n * n * n) {
+			k = k + 2;
+		}
+		i++;
+	}
+}
+
 // Binary search, discarding one half of it.
 // Works for sorted arrays, tho.
 // f(n) = log2(n) | log2 -> log of base 2
@@ -113,7 +152,6 @@ void quadraticTimeTricky(int n) {
 // low = 8, high = 9, currentNum = 9, step 3
 // low = 9, break loop.
 // log2(10) => 3.32 ~ 3.
-
 size_t logarithmicTime(const vector<int>& vector, int num) {
 	size_t low = 0;
 	size_t high = vector.size() - 1;
@@ -143,6 +181,20 @@ int main() {
 
 	vector<int> vector = { 1,2,3,4,5,6,7,8,9,10 };
 	logarithmicTime(vector, 11);
+
+	anotherQuadraticTime(3);
 }
 
-// https://youtu.be/RBSGKlAvoiM?list=PLxfRCInfTk3Wk-IKiCWLIkBtVKrDv-2QG&t=686
+// https://youtu.be/RBSGKlAvoiM?list=PLxfRCInfTk3Wk-IKiCWLIkBtVKrDv-2QG&t=858
+
+// check indentation, if indented u multiply, if on same indentation level u add.
+// while n  (n*)
+//	while 3*n (3n+)
+//	while 2*n (2n)
+// n * (3n+2n) = 5n2, O(n2)
+
+
+// same goes with for loop
+// for n (n*)
+//	for 2*n (+2n)
+// n*2n = 2n2, O(n2)
