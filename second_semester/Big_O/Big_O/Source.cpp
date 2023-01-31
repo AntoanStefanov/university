@@ -25,7 +25,9 @@ using std::format;
 // O(f(n)) = O(n^3) -> big O of n cubed. -> Cubic time, because,
 // n^3 is the most dominant term.
 
-// We ignore constants, infinity(n) + 7(c) is again infinity.
+// c - constant, n - input size.
+// We ignore constants and mathematical operations,
+// infinity(n) + 7(c) is again infinity.
 // O(n+c) = O(n)
 // O(c*n) = O(n)
 
@@ -42,12 +44,25 @@ void constantTime(int n) {
 
 }
 
-// f(n) = n
+// The algorithm runs in linear time with respect to the input size(n),
+// because we do a constant amount of work, n-times.
+// with input size increase, the CPU operations increase too.
+// Here: f(n) = n, so
 // O(f(n)) = O(n)
 void linearTimeOne(int n) {
 	int i = 0;
 	while (i < n) {
 		i++;
+	}
+}
+
+// Increment by 3, the loop will finish 3 times faster.
+// Here: f(n) = n/3, we ignore constants(l.28), so:
+// O(f(n)) = O(n)
+void linearTimeTwo(int n) {
+	int i = 0;
+	while (i < n) {
+		i = i + 3;
 	}
 }
 
