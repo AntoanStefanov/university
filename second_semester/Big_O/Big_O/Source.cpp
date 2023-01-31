@@ -1,10 +1,14 @@
-#include <iostream>
-#include <format>
+#include <iostream> // for std::cout, std::cin
+#include <vector> // for std::vector
+#include <format> // for std::format
+#include <numeric> // for std::midpoint
 
 using std::string;
 using std::cout;
 using std::endl;
 using std::format;
+using std::vector;
+using std::midpoint;
 
 // Time complexity describes how the CPU operations are changing,
 // with the input size(n) increase.
@@ -57,6 +61,7 @@ void linearTimeOne(int n) {
 }
 
 // Increment by 3, the loop will finish 3 times faster.
+// n=9: i=3, i=6, i=9
 // Here: f(n) = n/3, we ignore constants(l.28), so:
 // O(f(n)) = O(n)
 void linearTimeTwo(int n) {
@@ -66,7 +71,78 @@ void linearTimeTwo(int n) {
 	}
 }
 
+// n work, done n times. n^2., if n=10, operations done are 100.
+// Here, f(n) = n^2, so:
+// O(f(n)) = O(n^2)
+void quadraticTime(int n) {
+	int executedLineCounter = 0;
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cout << format("{} {}", i, j) << endl;
+			executedLineCounter++;
+		}
+	}
+	cout << executedLineCounter << endl;
+
+}
+
+// Instead of j=0, now it's j=i.
+// (n) + (n-1) + (n-2) + (n-3) + ... + 3 + 2 + 1 =>
+// O(n(n+1)/2) = O(n^2/2 + n/2) =>
+// O(n^2) | n^2 is the most dominant term, so it's big O of n^2.
+void quadraticTimeTricky(int n) {
+	int executedLineCounter = 0;
+	for (int i = 0; i < n; i++) {
+		for (int j = i; j < n; j++) {
+			cout << format("{} {}", i, j) << endl;
+			executedLineCounter++;
+		}
+	}
+	cout << executedLineCounter << endl;
+}
+
+// Binary search, discarding one half of it.
+// Works for sorted arrays, tho.
+// f(n) = log2(n) | log2 -> log of base 2
+// O(log(n)) | n - is the size of the vector/arr.
+// 
+// n = 10 (size of arr/vector)
+// low = 0, high = 9, currentNum = 5, step 1
+// low = 5, high = 9, currentNum = 8, step 2
+// low = 8, high = 9, currentNum = 9, step 3
+// low = 9, break loop.
+// log2(10) => 3.32 ~ 3.
+
+size_t logarithmicTime(const vector<int>& vector, int num) {
+	size_t low = 0;
+	size_t high = vector.size() - 1;
+
+	while (low < high) {
+		size_t mid = midpoint(low, high);
+		int currentNum = vector[mid];
+
+		if (currentNum == num) return mid;
+
+		if (currentNum < num) {
+			low = mid + 1;
+		}
+		else {
+			high = mid - 1;
+		}
+	}
+	return -1;
+}
 
 int main() {
 	constantTime(100000);
+	quadraticTime(10);
+	quadraticTimeTricky(5);
+	quadraticTimeTricky(10);
+	quadraticTimeTricky(15);
+
+	vector<int> vector = { 1,2,3,4,5,6,7,8,9,10 };
+	logarithmicTime(vector, 11);
 }
+
+// https://youtu.be/RBSGKlAvoiM?list=PLxfRCInfTk3Wk-IKiCWLIkBtVKrDv-2QG&t=686
