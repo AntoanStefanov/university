@@ -84,7 +84,7 @@ private:
 		auto newArrPointer = (int*)realloc(pArr, sizeof(int) * newSize);
 
 		if (newArrPointer == nullptr) {
-			return;
+			throw std::exception("woot! a nullptr!");
 		}
 		pArr = newArrPointer;
 		size = newSize;
