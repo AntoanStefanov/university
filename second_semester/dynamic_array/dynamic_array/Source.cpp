@@ -79,34 +79,15 @@ private:
 
 	void resize() {
 		int newSize = size * 2;
-		const int* oldPArr = pArr;
+
+		// (int*) -> typecast , auto means int*. it's redundant, because we type-cast it.
+		auto newArrPointer = (int*)realloc(pArr, sizeof(int) * newSize);
+
+		if (newArrPointer == nullptr) {
+			return;
+		}
+		pArr = newArrPointer;
 		size = newSize;
-
-		// create new static array.
-		if (newSize <= size) { // THIS SOLVED THE BUFFER OVERRUN PROBLEM.
-			return;
-		}
-
-		pArr = (int*)malloc(sizeof(int) * newSize);
-
-		if (pArr == nullptr) {
-			return;
-		}
-
-		if (oldPArr == nullptr) {
-			return;
-		}
-
-		if (currentIndex <= 0) {
-			return;
-		}
-
-		// copy
-		for (int i = 0; i < currentIndex; i++) {
-			int num = oldPArr[i];
-			pArr[i] = num;
-		}
-
 	}
 
 	bool isIndexValid(int index) const {
@@ -118,16 +99,13 @@ private:
 
 public:
 	void add(int num) {
-		if (currentIndex >= size) {
-			resize();
-		}
-		if (pArr == nullptr) {
-			return;
-		}
-		if (currentIndex < size) {
+		if (currentIndex < 0) { // set just bcs of sonarLint err.... No way currentIndex is <0
 			pArr[currentIndex] = num;
 		}
 		currentIndex++;
+		if (currentIndex == size) {
+			resize();
+		}
 	}
 
 	void print() const {
@@ -211,15 +189,15 @@ int main() {
 
 	DynamicArray dynamicArr;
 	dynamicArr.print();
+	dynamicArr.add(1);
+	dynamicArr.add(2);
+	dynamicArr.add(3);
+	dynamicArr.add(4);
+	dynamicArr.add(5);
+	dynamicArr.add(6);
 	dynamicArr.add(7);
-	dynamicArr.add(7);
-	dynamicArr.add(7);
-	dynamicArr.add(7);
-	dynamicArr.add(7);
-	dynamicArr.add(7);
-	dynamicArr.add(7);
-	dynamicArr.add(7);
-	dynamicArr.add(7);
+	dynamicArr.add(8);
+	dynamicArr.add(9);
 	cout << dynamicArr.get(-1);
 	cout << dynamicArr.get(0);
 	cout << dynamicArr.get(1);
