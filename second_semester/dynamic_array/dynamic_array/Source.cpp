@@ -1,12 +1,14 @@
 #include <iostream>
 #include <format>
 #include <array>
+#include <cstdlib>
 
 using std::string;
 using std::cout;
 using std::endl;
 using std::format;
 using std::array;
+using std::malloc;
 
 // https://youtu.be/RBSGKlAvoiM?list=PLxfRCInfTk3Wk-IKiCWLIkBtVKrDv-2QG&t=1021
 // 
@@ -58,7 +60,7 @@ using std::array;
 // let's add some elements to it. 
 // 
 // If added element exceeds the arr size,
-// we create new array with twice the size,
+// we create a new static array with twice the size, /resize/
 // copy the original elements into it,
 // and then we add it.
 
@@ -66,7 +68,6 @@ using std::array;
 // [7, -9, 3, empty] | [7, -9, 3, 12]
 // [7, -9, 3, 12, 5, empty, empty, empty]
 // [7, -9, 3, 12, 5, -6, empty, empty]
-
 
 
 // overloaded fn. Same name different paramaters.
@@ -127,4 +128,16 @@ int main() {
 
 	cout << "After Swap with pass by reference\n";
 	cout << "a = " << a << " b = " << b << "\n";
+
+	DynamicArray dynamicArr;
+	dynamicArr.print();
+	dynamicArr.add(7);
+	dynamicArr.add(7);
+	dynamicArr.add(7);
+	cout << dynamicArr.get(-1);
+	cout << dynamicArr.get(0);
+	cout << dynamicArr.get(1);
+	cout << dynamicArr.get(2);
+	cout << dynamicArr.get(3);
+	//dynamicArr.print();
 }
