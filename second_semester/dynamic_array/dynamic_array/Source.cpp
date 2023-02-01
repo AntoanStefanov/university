@@ -70,6 +70,86 @@ using std::malloc;
 // [7, -9, 3, 12, 5, -6, empty, empty]
 
 
+
+class DynamicArray {
+private:
+	int size = 2;
+	int currentIndex = 0;
+	int* pArr = (int*)malloc(sizeof(int) * size);
+
+	void resize() {
+		int newSize = size * 2;
+		const int* oldPArr = pArr;
+		size = newSize;
+
+		// create new static array.
+		if (newSize <= size) { // THIS SOLVED THE BUFFER OVERRUN PROBLEM.
+			return;
+		}
+
+		pArr = (int*)malloc(sizeof(int) * newSize);
+
+		if (pArr == nullptr) {
+			return;
+		}
+
+		if (oldPArr == nullptr) {
+			return;
+		}
+
+		if (currentIndex <= 0) {
+			return;
+		}
+
+		// copy
+		for (int i = 0; i < currentIndex; i++) {
+			int num = oldPArr[i];
+			pArr[i] = num;
+		}
+
+	}
+
+	bool isIndexValid(int index) const {
+		if (index < 0 || index >= currentIndex) {
+			return false;
+		}
+		return true;
+	}
+
+public:
+	void add(int num) {
+		if (currentIndex >= size) {
+			resize();
+		}
+		if (pArr == nullptr) {
+			return;
+		}
+		if (currentIndex < size) {
+			pArr[currentIndex] = num;
+		}
+		currentIndex++;
+	}
+
+	void print() const {
+		for (int i = 0; i < currentIndex; i++) {
+			cout << pArr[i] << endl;
+		}
+	}
+
+	int get(int index) const {
+		if (isIndexValid(index)) {
+			return pArr[index];
+		}
+	}
+
+	int set(int index, int number) const {
+		if (isIndexValid(index)) {
+			pArr[index] = number;
+		}
+	}
+};
+
+
 // overloaded fn. Same name different paramaters.
 void swap(int& x, int& y, const int(&arr)[2]) {
 	int z = x;
@@ -131,6 +211,12 @@ int main() {
 
 	DynamicArray dynamicArr;
 	dynamicArr.print();
+	dynamicArr.add(7);
+	dynamicArr.add(7);
+	dynamicArr.add(7);
+	dynamicArr.add(7);
+	dynamicArr.add(7);
+	dynamicArr.add(7);
 	dynamicArr.add(7);
 	dynamicArr.add(7);
 	dynamicArr.add(7);
