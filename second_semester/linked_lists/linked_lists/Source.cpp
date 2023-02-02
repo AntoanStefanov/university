@@ -54,39 +54,33 @@ struct ListNode {
 // [1, 2, 3, 4, 5]
 // [5, 4, 3, 2, 1]
 
-// vzimam 1, i next(2) i next_next(3)
-// 
-
-//  vseki element e structura.
-// node -> vuzel
-
 class Solution {
 public:
 	ListNode* reverseList(ListNode* head) {
+		ListNode* current;
 		ListNode* next;
-		ListNode* next_next;
 		ListNode* save;
 
-		next = head; // 1
+		current = head; // 1
 
 		// []
-		if (next == nullptr) {
+		if (current == nullptr) {
 			return head;
 		}
 
-		next_next = next->next; // 2
+		next = current->next; // 2
 
-		while (next_next) {
-			save = next_next->next; // 3
+		while (next) {
+			save = next->next; // 3
 
-			next_next->next = next; // 2->1, 3->2
+			next->next = current; // 2->1, 3->2
 
-			next = next_next; // 2, 3
-			next_next = save; // 3, 4
+			current = next; // 2, 3
+			next = save; // 3, 4
 		}
 
 		head->next = nullptr;
-		head = next;
+		head = current;
 		return head;
 	}
 };
@@ -101,14 +95,12 @@ int main() {
 	ListNode n1 = ListNode(1, &n2); // node 1, value 2, node's adress 2
 	ListNode z;
 
-	// 5 nodes => 1 single-node list.
-
 	sol.reverseList(&n1);
-	// sol.reverseList(&n1);
-	// sol.reverseList(&n5);
 	sol.reverseList(&z);
 }
 
+
+// https://youtu.be/RBSGKlAvoiM?list=PLxfRCInfTk3Wk-IKiCWLIkBtVKrDv-2QG&t=2306
 
 
 
