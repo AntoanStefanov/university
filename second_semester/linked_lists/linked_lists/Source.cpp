@@ -39,8 +39,16 @@ using std::format;
 // Doubly linked list, each node hold a reference to the next and the previous node.
 //  
 // In the implementation you always keep a reference to the head and the tail,
-// for a quick adding/removing.
+// for a quick adding/removing from both ends of the linked list.
 // 
+//					  Pros						|				Cons
+// singly linked list: uses less memory			|	Cannot easily access previous elements.
+//					   simpler implementation	|
+//
+// doubly linked list: can be traversed backwards|	takes 2x memory.
+
+
+
 // Definition for singly-linked list.
 struct ListNode {
 	int val;
@@ -56,6 +64,7 @@ struct ListNode {
 
 class Solution {
 public:
+	// https://leetcode.com/problems/reverse-linked-list/
 	ListNode* reverseList(ListNode* head) {
 		ListNode* current;
 		ListNode* next;
@@ -100,8 +109,7 @@ int main() {
 }
 
 
-// https://youtu.be/RBSGKlAvoiM?list=PLxfRCInfTk3Wk-IKiCWLIkBtVKrDv-2QG&t=2306
-
+// https://youtu.be/RBSGKlAvoiM?list=PLxfRCInfTk3Wk-IKiCWLIkBtVKrDv-2QG&t=2342
 
 
 
