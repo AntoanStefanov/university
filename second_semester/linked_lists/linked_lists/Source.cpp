@@ -58,6 +58,20 @@ struct ListNode {
 	ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
 
+class SinglyLinkedListNode {
+private:
+	int val;
+	SinglyLinkedListNode* next;
+public:
+	SinglyLinkedListNode() : val(0), next(nullptr) {}
+	SinglyLinkedListNode(int x) : val(x), next(nullptr) {}
+	SinglyLinkedListNode(int x, SinglyLinkedListNode* next) : val(x), next(next) {}
+
+	void removeNode() {
+		cout << "a";
+		// remove n2, so n1 points to n3
+	}
+};
 
 // [1, 2, 3, 4, 5]
 // [5, 4, 3, 2, 1]
@@ -92,6 +106,30 @@ public:
 		head = current;
 		return head;
 	}
+
+	void insertAt(ListNode* head, ListNode* insertionNode, int index) {
+		int currentIndex = 0;
+		ListNode* currentNode = head;
+
+		if (index == 0) {
+			// at index 0. 7 -> 1 -> 2 (7 becomes head)
+			insertionNode->next = currentNode;
+			return;
+		}
+
+		while (currentIndex < index) {
+			if (currentIndex == index - 1) {
+				// at index 2. 2 -> 7 -> 3.
+				// at index 1. 1 -> 7 -> 2.
+
+				insertionNode->next = currentNode->next;
+				currentNode->next = insertionNode;
+				break;
+			}
+			currentNode = currentNode->next;
+			currentIndex++;
+		}
+	}
 };
 
 int main() {
@@ -104,12 +142,25 @@ int main() {
 	ListNode n1 = ListNode(1, &n2); // node 1, value 2, node's adress 2
 	ListNode z;
 
-	sol.reverseList(&n1);
+	//sol.reverseList(&n1);
 	sol.reverseList(&z);
+
+	ListNode n7 = ListNode(7);
+	sol.insertAt(&n1, &n7, 0);
+
+	SinglyLinkedListNode node5 = SinglyLinkedListNode(5);
+	SinglyLinkedListNode node4 = SinglyLinkedListNode(4, &node5);
+	SinglyLinkedListNode node3 = SinglyLinkedListNode(3, &node4);
+	SinglyLinkedListNode node2 = SinglyLinkedListNode(2, &node3);
+	SinglyLinkedListNode node1 = SinglyLinkedListNode(1, &node2);
+
+
+
+
 }
 
 
-// https://youtu.be/RBSGKlAvoiM?list=PLxfRCInfTk3Wk-IKiCWLIkBtVKrDv-2QG&t=2342
+// https://youtu.be/RBSGKlAvoiM?list=PLxfRCInfTk3Wk-IKiCWLIkBtVKrDv-2QG&t=2429
 
 
 
