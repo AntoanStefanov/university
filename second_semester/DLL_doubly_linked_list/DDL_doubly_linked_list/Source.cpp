@@ -67,31 +67,31 @@ public:
 			head = tail = node;
 		}
 		else {
-			Node* next = new Node(value, tail, nullptr);
-			tail->setNext(next);
-			if (isEmpty()) {
-				tail->setPrevious(head);
-				head->setNext(tail);
-			}
-			tail = next;
+			// new tail
+			Node* last = new Node(value, tail, nullptr);
+			// set the next for the current tail, with the new tail.
+			tail->setNext(last);
+			// set the new tail as current.
+			tail = last;
 		}
 		size++;
 	}
 
 	void deleteLast() {
 		// check if empty.
-		if (isEmpty()) {
-			return;
-		}
-		else {
-			// get previous.
-			Node* prev = tail->getPrevious();
-			// remove tail
-			delete tail;
-			// set prev as tail.
-			prev->setNext(nullptr);
-			tail = prev;
-		}
+		if (isEmpty()) return;
+
+		// get previous.
+		Node* prev = tail->getPrevious();
+
+		// remove tail
+		delete tail;
+
+		// set prev as tail.
+		prev->setNext(nullptr);
+		tail = prev;
+
+		// downsize the list.
 		size--;
 	}
 };
@@ -133,5 +133,10 @@ int main() {
 	DLL.deleteLast();
 	DLL.getHead();
 
-
+	DoublyLinkedList DLL1;
+	DLL1.addLast(1);
+	DLL1.addLast(2);
+	DLL1.deleteLast();
+	DLL1.addLast(2);
+	DLL1.getHead();
 }
