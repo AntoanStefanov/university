@@ -135,22 +135,16 @@ public:
 	}
 
 	void removeNode(ListNode* head, ListNode* nodeToRemove) {
+		// DELETE NODE! MEMORY LEAK.
+		// https://stackoverflow.com/questions/655065/when-should-i-use-the-new-keyword-in-c
 		ListNode* currentNode = head;
-
-		// if (index == 0) {
-		// 	// at index 0. 7 -> 1 -> 2 (7 becomes head)
-		// 	insertionNode->next = currentNode;
-		// 	return;
-		// }
 
 		while (currentNode) {
 			if (currentNode->next == nodeToRemove) {
 				// Remove Node 2. 1 -> 3 
-
 				currentNode->next = nodeToRemove->next;
 
 				// https://stackoverflow.com/questions/13223399/deleting-a-pointer-in-c
-				// not sure if that deletes/frees the pointer.
 				*nodeToRemove = NULL;
 				break;
 			}
