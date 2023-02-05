@@ -11,19 +11,34 @@ private:
 	class Node {
 	private:
 		int value;
-		Node* previous;
-		Node* next;
+		Node* previous = nullptr;
+		Node* next = nullptr;
 
 	public:
 		Node(int value, Node* previous, Node* next) : value(value), previous(previous), next(next) {}
-		explicit Node(int value) : value(value), previous(nullptr), next(nullptr) {}
 
 		Node* getPrevious() {
 			return previous;
 		}
 
 		Node* getNext() {
-			return previous;
+			return next;
+		}
+
+		int getValue() const {
+			return value;
+		}
+
+		void setPrevious(Node* node) {
+			previous = node;
+		}
+
+		void setNext(Node* node) {
+			next = node;
+		}
+
+		void setValue(int val) {
+			value = val;
 		}
 	};
 	int size = 0;
@@ -46,22 +61,23 @@ public:
 		return getSize() == 0;
 	}
 
-	Node* addNode(int value) {
-		Node* node = new Node(value);
+	void addLast(int value) {
+
 		if (isEmpty()) {
+			Node* node = new Node(value, nullptr, nullptr);
 			head = tail = node;
 		}
-
-		return node;
+		else {
+			Node* next = new Node(value, tail, nullptr);
+			tail->setNext(next);
+			if (isEmpty()) {
+				tail->setPrevious(head);
+				head->setNext(tail);
+			}
+			tail = next;
+		}
+		size++
 	}
-
-	Node* addNode(int value, Node* previous, Node* next) {
-		Node* node = new Node(value);
-		head = tail = node;
-		return node;
-	}
-
-
 };
 
 // https://www.programiz.com/cpp-programming/class-templates
@@ -92,4 +108,9 @@ int main() {
 	DLL.getHead();
 	DLL.getSize();
 	DLL.getTail();
+
+	DLL.addLast(1);
+	DLL.addLast(2);
+	DLL.addLast(3);
+	DLL.getHead();
 }
