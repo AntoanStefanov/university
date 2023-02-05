@@ -11,8 +11,8 @@ private:
 	class Node {
 	private:
 		int value;
-		Node* previous = nullptr;
-		Node* next = nullptr;
+		Node* previous;
+		Node* next;
 
 	public:
 		Node(int value, Node* previous, Node* next) : value(value), previous(previous), next(next) {}
@@ -62,7 +62,6 @@ public:
 	}
 
 	void addLast(int value) {
-
 		if (isEmpty()) {
 			Node* node = new Node(value, nullptr, nullptr);
 			head = tail = node;
@@ -77,6 +76,23 @@ public:
 			tail = next;
 		}
 		size++;
+	}
+
+	void deleteLast() {
+		// check if empty.
+		if (isEmpty()) {
+			return;
+		}
+		else {
+			// get previous.
+			Node* prev = tail->getPrevious();
+			// remove tail
+			delete tail;
+			// set prev as tail.
+			prev->setNext(nullptr);
+			tail = prev;
+		}
+		size--;
 	}
 };
 
@@ -112,5 +128,10 @@ int main() {
 	DLL.addLast(1);
 	DLL.addLast(2);
 	DLL.addLast(3);
+	DLL.addLast(4);
 	DLL.getHead();
+	DLL.deleteLast();
+	DLL.getHead();
+
+
 }
