@@ -1,10 +1,13 @@
 #include <iostream>
 #include <format>
+#include <cstdlib> // for delete operator (deleting pointer)
+
 
 using std::string;
 using std::cout;
 using std::endl;
 using std::format;
+
 
 // https://youtu.be/RBSGKlAvoiM?list=PLxfRCInfTk3Wk-IKiCWLIkBtVKrDv-2QG&t=2103
 // Singly and doubly linked lists.
@@ -130,6 +133,30 @@ public:
 			currentIndex++;
 		}
 	}
+
+	void removeNode(ListNode* head, ListNode* nodeToRemove) {
+		ListNode* currentNode = head;
+
+		// if (index == 0) {
+		// 	// at index 0. 7 -> 1 -> 2 (7 becomes head)
+		// 	insertionNode->next = currentNode;
+		// 	return;
+		// }
+
+		while (currentNode) {
+			if (currentNode->next == nodeToRemove) {
+				// Remove Node 2. 1 -> 3 
+
+				currentNode->next = nodeToRemove->next;
+
+				// https://stackoverflow.com/questions/13223399/deleting-a-pointer-in-c
+				// not sure if that deletes/frees the pointer.
+				*nodeToRemove = NULL;
+				break;
+			}
+			currentNode = currentNode->next;
+		}
+	}
 };
 
 int main() {
@@ -147,6 +174,7 @@ int main() {
 
 	ListNode n7 = ListNode(7);
 	sol.insertAt(&n1, &n7, 0);
+	sol.removeNode(&n7, &n2);
 
 	SinglyLinkedListNode node5 = SinglyLinkedListNode(5);
 	SinglyLinkedListNode node4 = SinglyLinkedListNode(4, &node5);
