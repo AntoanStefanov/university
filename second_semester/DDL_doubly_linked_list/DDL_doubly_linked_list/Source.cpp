@@ -76,7 +76,7 @@ public:
 			}
 			tail = next;
 		}
-		size++
+		size++;
 	}
 };
 
