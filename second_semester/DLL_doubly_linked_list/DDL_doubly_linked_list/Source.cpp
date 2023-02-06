@@ -44,6 +44,11 @@ private:
 	int size = 0;
 	Node* head = nullptr;
 	Node* tail = nullptr;
+
+	void addOnEmpty(int value) {
+		Node* node = new Node(value, nullptr, nullptr);
+		head = tail = node;
+	}
 public:
 	Node* getHead() {
 		return head;
@@ -63,16 +68,16 @@ public:
 
 	void addLast(int value) {
 		if (isEmpty()) {
-			Node* node = new Node(value, nullptr, nullptr);
-			head = tail = node;
+			addOnEmpty(value);
 		}
 		else {
-			// new tail
-			Node* last = new Node(value, tail, nullptr);
-			// set the next for the current tail, with the new tail.
-			tail->setNext(last);
+			// tail == 1
+			// new tail, with the old one set as previous.
+			Node* newTail = new Node(value, tail, nullptr); //	2 -> 1
+			// set current tail next, to the new tail.
+			tail->setNext(newTail); // 1 -> 2
 			// set the new tail as current.
-			tail = last;
+			tail = newTail; // tail == 2
 		}
 		size++;
 	}
@@ -93,6 +98,25 @@ public:
 
 		// downsize the list.
 		size--;
+	}
+
+	void addFirst(int value) {
+		if (isEmpty()) {
+			addOnEmpty(value);
+		}
+		else {
+			// new head, which next is current head.
+			Node* newHead = new Node(value, nullptr, head); // 0 -> 1
+
+			// set current head previous as the new head. 1 -> 0
+			head->setPrevious(newHead);
+
+			// set new head as current.
+			head = newHead;
+		}
+	}
+	void deleteFirst() {
+
 	}
 };
 
@@ -138,5 +162,7 @@ int main() {
 	DLL1.addLast(2);
 	DLL1.deleteLast();
 	DLL1.addLast(2);
+	DLL1.getHead();
+	DLL1.addFirst(0);
 	DLL1.getHead();
 }
