@@ -114,9 +114,26 @@ public:
 			// set new head as current.
 			head = newHead;
 		}
+		size++;
 	}
-	void deleteFirst() {
 
+	void deleteFirst() {
+		if (isEmpty()) {
+			return;
+		}
+		// 1. get newHead
+		Node* newHead = head->getNext();
+
+		// 2. set newHead prev as null
+		newHead->setPrevious(nullptr);
+
+		// 3. delete current head
+		delete head;
+
+		// 4. set newHead as head
+		head = newHead;
+
+		size--;
 	}
 };
 
@@ -164,5 +181,7 @@ int main() {
 	DLL1.addLast(2);
 	DLL1.getHead();
 	DLL1.addFirst(0);
+	DLL1.getHead();
+	DLL1.deleteFirst();
 	DLL1.getHead();
 }
