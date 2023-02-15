@@ -35,6 +35,10 @@ public:
 };
 
 int main() {
+	// deconstructor -> 
+	// https://stackoverflow.com/questions/4036394/how-do-i-call-the-classs-destructor
+
+	// virtual/non-virtual
 	// https://stackoverflow.com/questions/2391679/why-do-we-need-virtual-functions-in-c
 	// https://stackoverflow.com/questions/11067975/overriding-non-virtual-methods
 	Base ba;
