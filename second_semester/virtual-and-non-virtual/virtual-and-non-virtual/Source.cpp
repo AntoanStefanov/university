@@ -35,6 +35,7 @@ public:
 };
 
 int main() {
+	// https://stackoverflow.com/questions/2391679/why-do-we-need-virtual-functions-in-c
 	// https://stackoverflow.com/questions/11067975/overriding-non-virtual-methods
 	Base ba;
 	Derived de;
