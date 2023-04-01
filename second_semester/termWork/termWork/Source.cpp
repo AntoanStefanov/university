@@ -89,12 +89,12 @@ public:
 	void setMode(const string&);
 	string getMode() const;
 
-	void setForwardVolts(int);
-	double getForwardVolts() const;
+	void setImax(int);
+	double getImax() const;
 
 private:
-	string mode; // "ON" or "OFF" , check if input is valid.
-	double forwardVolts; // 0.3V, 0.7V -> so that current can rise.
+	string mode; // "ON" or "OFF", check if input is valid.
+	double Imax; // The usual current rating of SCRs is from about 30 A to 100 A. /not sure/.
 };
 
 int main() {
