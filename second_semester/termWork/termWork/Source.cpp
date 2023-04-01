@@ -28,6 +28,73 @@ private:
 class Diode : public Semiconductor {
 public:
 	Diode();
+	Diode(string const&, int);
+	Diode(Diode const&);
+	~Diode();
+
+	void setChemicalElement(const string&);
+	string getChemicalElement() const;
+
+	void setForwardVolts(int);
+	double getForwardVolts() const;
+
+private:
+	string chemicalElement; // silicon, germanium, etc...
+	double forwardVolts; // 0.3V, 0.7V -> so that current can rise.
+};
+
+class LED : public Diode {
+public:
+	LED();
+	LED(string const&, int);
+	LED(LED const&);
+	~LED();
+};
+
+// Two types of LEDs are available, a lamp type (leaded) and a chip type (surface mount). https://www.google.com/search?q=type+of+LED+diode+&sxsrf=APwXEdeZA52lnvnN9m_X9HDUnSXj-QGimg%3A1680378742879&ei=dosoZJuXNYq_xc8PnNKOuAg&ved=0ahUKEwibqrrQuon-AhWKX_EDHRypA4cQ4dUDCA8&uact=5&oq=type+of+LED+diode+&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIGCAAQBxAeMggIABAIEAcQHjoKCAAQRxDWBBCwAzoKCAAQigUQsAMQQzoFCAAQgAQ6BggAEBYQHjoICAAQFhAeEA86BwgAEIAEEBM6CAgAEBYQHhATOgoIABAWEB4QDxATOgkIABCABBANEBM6CggAEAgQHhANEBM6CAgAEAcQHhAPOgcIABCABBANOgoIABAIEAcQHhAPOgYIABAIEB5KBAhBGABQlUtYutQBYJTVAWgFcAF4AIABcYgBsQ6SAQQ3LjExmAEAoAEByAEKwAEB&sclient=gws-wiz-serp
+class LampTypeLED : public LED {
+public:
+	LampTypeLED();
+	LampTypeLED(string const&, int);
+	LampTypeLED(LampTypeLED const&);
+	~LampTypeLED();
+};
+
+
+class Transistor : public Semiconductor {
+public:
+	Transistor();
+	Transistor(string const&, int);
+	Transistor(Transistor const&);
+	~Transistor();
+
+	void setType(const string&);
+	string getType() const;
+
+	void setForwardVolts(int);
+	double getForwardVolts() const;
+
+private:
+	string type; // bipolar transistors (bipolar junction transistors: BJTs), field-effect transistors (FETs), and insulated-gate bipolar transistors (IGBTs)
+	double forwardVolts; // 0.3V, 0.7V -> so that current can rise.
+};
+
+class Thyristor : public Semiconductor {
+public:
+	Thyristor();
+	Thyristor(string const&, int);
+	Thyristor(Thyristor const&);
+	~Thyristor();
+
+	void setMode(const string&);
+	string getMode() const;
+
+	void setForwardVolts(int);
+	double getForwardVolts() const;
+
+private:
+	string mode; // "ON" or "OFF" , check if input is valid.
+	double forwardVolts; // 0.3V, 0.7V -> so that current can rise.
 };
 
 int main() {
