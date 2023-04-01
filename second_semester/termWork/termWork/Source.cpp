@@ -71,12 +71,12 @@ public:
 	void setType(const string&);
 	string getType() const;
 
-	void setForwardVolts(int);
-	double getForwardVolts() const;
+	void setFunctionality(const string&);
+	string getFunctionality() const;
 
 private:
 	string type; // bipolar transistors (bipolar junction transistors: BJTs), field-effect transistors (FETs), and insulated-gate bipolar transistors (IGBTs)
-	double forwardVolts; // 0.3V, 0.7V -> so that current can rise.
+	string functionality; // "amplify", "control", and "generate" electrical signals.
 };
 
 class Thyristor : public Semiconductor {
