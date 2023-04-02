@@ -108,10 +108,22 @@ private:
 };
 
 int main() {
+	Semiconductor* defaultDiodePointer;
 	Semiconductor* diodePointer;
-	Diode diode1;
-	diodePointer = &diode1;
-	diodePointer->showInfo(); // Diode showInfo called. At runtime.
+	Semiconductor* diodeCPYPointer;
+
+	Diode defaultDiode;
+	Diode diode = Diode("Germanium", 0.3);
+	Diode diodeCPY = Diode(diode);
+
+	defaultDiodePointer = &defaultDiode;
+	diodePointer = &diode;
+	diodeCPYPointer = &diodeCPY;
+
+	// Diode showInfo called. At runtime. Virtual fn.
+	defaultDiodePointer->showInfo();
+	diodePointer->showInfo();
+	diodeCPYPointer->showInfo();
 }
 
 
