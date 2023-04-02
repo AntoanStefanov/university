@@ -6,12 +6,10 @@ using std::cout;
 using std::endl;
 using std::format;
 
-// https://www.ibm.com/docs/en/zos/2.4.0?topic=only-abstract-classes-c ? class Semiconductor
-// https://stackoverflow.com/questions/8513408/c-abstract-base-class-constructors-destructors-general-correctness
 class Semiconductor {
 public:
 	virtual ~Semiconductor();
-	virtual void showInfo() = 0; // pure virtual function, ... = 0
+	virtual void showInfo();
 };
 
 class Diode : public Semiconductor {
@@ -19,7 +17,7 @@ public:
 	Diode();
 	Diode(string const&, double);
 	Diode(Diode const&);
-	virtual ~Diode();
+	~Diode() override; // same as "virtual void ~Diode()"
 
 	void setChemicalElement(const string&);
 	string getChemicalElement() const;
@@ -27,7 +25,7 @@ public:
 	void setForwardVolts(double);
 	double getForwardVolts() const;
 
-	virtual void showInfo();
+	void showInfo() override; // same as "virtual void showInfo()"
 
 private:
 	string chemicalElement; // silicon, germanium, etc...
@@ -109,8 +107,10 @@ private:
 };
 
 int main() {
-	cout << "main" << endl;
-	Diode diode;
+	Semiconductor* diodePointer;
+	Diode diode1;
+	diodePointer = &diode1;
+	diodePointer->showInfo(); // Diode showInfo called. At runtime.
 }
 
 
@@ -155,4 +155,8 @@ void Diode::setForwardVolts(double diodeForwardVolts) {
 
 double Diode::getForwardVolts() const {
 	return forwardVolts;
+}
+
+void Diode::showInfo() {
+	cout << format("Diode -> Chemical Element: {}. Forward Volts: {}V.\n", getChemicalElement(), getForwardVolts());
 }
