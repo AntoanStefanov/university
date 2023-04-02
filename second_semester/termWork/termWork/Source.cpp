@@ -10,7 +10,7 @@ using std::format;
 // https://stackoverflow.com/questions/8513408/c-abstract-base-class-constructors-destructors-general-correctness
 class Semiconductor {
 public:
-	virtual ~Semiconductor() = 0; // pure virtual function, ... = 0
+	virtual ~Semiconductor();
 	virtual void showInfo() = 0; // pure virtual function, ... = 0
 };
 
@@ -19,7 +19,7 @@ public:
 	Diode();
 	Diode(string const&, double);
 	Diode(Diode const&);
-	~Diode();
+	virtual ~Diode();
 
 	void setChemicalElement(const string&);
 	string getChemicalElement() const;
@@ -127,7 +127,7 @@ Diode::Diode() {
 	setForwardVolts(0.7);
 }
 
-Diode::Diode(const string& chemicalElement, double forwardVolts) {
+Diode::Diode(string const& chemicalElement, double forwardVolts) {
 	setChemicalElement(chemicalElement);
 	setForwardVolts(forwardVolts);
 }
@@ -135,4 +135,24 @@ Diode::Diode(const string& chemicalElement, double forwardVolts) {
 Diode::Diode(Diode const& diode) {
 	setChemicalElement(diode.getChemicalElement());
 	setForwardVolts(diode.getForwardVolts());
+}
+
+Diode::~Diode() {
+	cout << "Diode Destructor." << endl;
+}
+
+void Diode::setChemicalElement(string const& diodeChemicalElement) {
+	chemicalElement = diodeChemicalElement;
+}
+
+string Diode::getChemicalElement() const {
+	return chemicalElement;
+}
+
+void Diode::setForwardVolts(double diodeForwardVolts) {
+	forwardVolts = diodeForwardVolts;
+}
+
+double Diode::getForwardVolts() const {
+	return forwardVolts;
 }
