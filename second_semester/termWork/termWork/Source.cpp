@@ -17,14 +17,14 @@ public:
 class Diode : public Semiconductor {
 public:
 	Diode();
-	Diode(string const&, int);
+	Diode(string const&, double);
 	Diode(Diode const&);
 	~Diode();
 
 	void setChemicalElement(const string&);
 	string getChemicalElement() const;
 
-	void setForwardVolts(int);
+	void setForwardVolts(double);
 	double getForwardVolts() const;
 
 	virtual void showInfo();
@@ -40,6 +40,16 @@ public:
 	LED(string const&, int);
 	LED(LED const&);
 	~LED();
+
+	void setElectricalPower(int);
+	int getElectricalPower() const;
+
+	void setBrightness(double);
+	double getBrightness() const;
+
+private:
+	int electricalPower; // 12W, 15W, 20W ... etc
+	double brightness; // Lumens, 12W->1,125lm(lumens)
 };
 
 // Two types of LEDs are available, a lamp type (leaded) and a chip type (surface mount). https://www.google.com/search?q=type+of+LED+diode+&sxsrf=APwXEdeZA52lnvnN9m_X9HDUnSXj-QGimg%3A1680378742879&ei=dosoZJuXNYq_xc8PnNKOuAg&ved=0ahUKEwibqrrQuon-AhWKX_EDHRypA4cQ4dUDCA8&uact=5&oq=type+of+LED+diode+&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIGCAAQBxAeMggIABAIEAcQHjoKCAAQRxDWBBCwAzoKCAAQigUQsAMQQzoFCAAQgAQ6BggAEBYQHjoICAAQFhAeEA86BwgAEIAEEBM6CAgAEBYQHhATOgoIABAWEB4QDxATOgkIABCABBANEBM6CggAEAgQHhANEBM6CAgAEAcQHhAPOgcIABCABBANOgoIABAIEAcQHhAPOgYIABAIEB5KBAhBGABQlUtYutQBYJTVAWgFcAF4AIABcYgBsQ6SAQQ3LjExmAEAoAEByAEKwAEB&sclient=gws-wiz-serp
@@ -49,8 +59,18 @@ public:
 	LampTypeLED(string const&, int);
 	LampTypeLED(LampTypeLED const&);
 	~LampTypeLED();
-};
 
+	void setLifespan(int);
+	int getLifespan() const;
+
+	void setEnergyClass(char);
+	char getEnergyClass() const;
+
+private:
+	int lifespan; // lifespan in years. ex. 1 year, 3 years etc...
+	char energyClass; // "A", "B", "C", ...,  "F"
+
+};
 
 class Transistor : public Semiconductor {
 public:
@@ -80,7 +100,7 @@ public:
 	void setMode(const string&);
 	string getMode() const;
 
-	void setImax(int);
+	void setImax(double);
 	double getImax() const;
 
 private:
@@ -99,5 +119,20 @@ Semiconductor::~Semiconductor() {
 }
 
 void Semiconductor::showInfo() {
-	cout << "Semiconductor: {}-{}" << endl;
+	cout << "Semiconductor -> showInfo." << endl;
+}
+
+Diode::Diode() {
+	setChemicalElement("Silicon");
+	setForwardVolts(0.7);
+}
+
+Diode::Diode(const string& chemicalElement, double forwardVolts) {
+	setChemicalElement(chemicalElement);
+	setForwardVolts(forwardVolts);
+}
+
+Diode::Diode(Diode const& diode) {
+	setChemicalElement(diode.getChemicalElement());
+	setForwardVolts(diode.getForwardVolts());
 }
