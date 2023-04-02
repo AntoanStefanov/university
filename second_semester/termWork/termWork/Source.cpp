@@ -6,10 +6,11 @@ using std::cout;
 using std::endl;
 using std::format;
 
+// Abstract class / Interface
 class Semiconductor {
 public:
 	virtual ~Semiconductor();
-	virtual void showInfo();
+	virtual void showInfo() = 0; // pure virtual fn. ... = 0
 };
 
 class Diode : public Semiconductor {
