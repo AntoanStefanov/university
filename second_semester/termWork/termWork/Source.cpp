@@ -20,7 +20,7 @@ public:
 	Diode(Diode const&);
 	~Diode() override; // same as "virtual void ~Diode()"
 
-	void setChemicalElement(const string&);
+	void setChemicalElement(string const&);
 	string getChemicalElement() const;
 
 	void setForwardVolts(double);
@@ -36,9 +36,9 @@ private:
 class LED : public Diode {
 public:
 	LED();
-	LED(string const&, int);
+	LED(string const&, double, int, double);
 	LED(LED const&);
-	~LED();
+	~LED() override;
 
 	void setElectricalPower(int);
 	int getElectricalPower() const;
@@ -46,9 +46,11 @@ public:
 	void setBrightness(double);
 	double getBrightness() const;
 
+	void showInfo() override;
+
 private:
 	int electricalPower; // 12W, 15W, 20W ... etc
-	double brightness; // Lumens, 12W->1,125lm(lumens)
+	double brightness; // Lumens -> 12W -> 1,125lm(lumens)
 };
 
 // Two types of LEDs are available, a lamp type (leaded) and a chip type (surface mount). https://www.google.com/search?q=type+of+LED+diode+&sxsrf=APwXEdeZA52lnvnN9m_X9HDUnSXj-QGimg%3A1680378742879&ei=dosoZJuXNYq_xc8PnNKOuAg&ved=0ahUKEwibqrrQuon-AhWKX_EDHRypA4cQ4dUDCA8&uact=5&oq=type+of+LED+diode+&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIGCAAQBxAeMggIABAIEAcQHjoKCAAQRxDWBBCwAzoKCAAQigUQsAMQQzoFCAAQgAQ6BggAEBYQHjoICAAQFhAeEA86BwgAEIAEEBM6CAgAEBYQHhATOgoIABAWEB4QDxATOgkIABCABBANEBM6CggAEAgQHhANEBM6CAgAEAcQHhAPOgcIABCABBANOgoIABAIEAcQHhAPOgYIABAIEB5KBAhBGABQlUtYutQBYJTVAWgFcAF4AIABcYgBsQ6SAQQ3LjExmAEAoAEByAEKwAEB&sclient=gws-wiz-serp
@@ -112,18 +114,35 @@ int main() {
 	Semiconductor* diodePointer;
 	Semiconductor* diodeCPYPointer;
 
+	Semiconductor* defaultLEDPointer;
+	Semiconductor* LEDPointer;
+	Semiconductor* LEDdiodeCPYPointer;
+
 	Diode defaultDiode;
 	Diode diode = Diode("Germanium", 0.3);
 	Diode diodeCPY = Diode(diode);
+
+	LED defaultLED;
+	LED LEDdiode = LED("Germanium", 0.3, 12, 1.125);
+	LED LEDdiodeCPY = LED(LEDdiode);
 
 	defaultDiodePointer = &defaultDiode;
 	diodePointer = &diode;
 	diodeCPYPointer = &diodeCPY;
 
+	defaultLEDPointer = &defaultLED;
+	LEDPointer = &LEDdiode;
+	LEDdiodeCPYPointer = &LEDdiodeCPY;
+
 	// Diode showInfo called. At runtime. Virtual fn.
 	defaultDiodePointer->showInfo();
 	diodePointer->showInfo();
 	diodeCPYPointer->showInfo();
+
+	// LED showInfo called. At runtime. Virtual fn.
+	defaultLEDPointer->showInfo();
+	LEDPointer->showInfo();
+	LEDdiodeCPYPointer->showInfo();
 }
 
 
@@ -173,3 +192,45 @@ double Diode::getForwardVolts() const {
 void Diode::showInfo() {
 	cout << format("Diode -> Chemical Element: {}. Forward Volts: {}V.\n", getChemicalElement(), getForwardVolts());
 }
+
+LED::LED() : Diode() {
+	setElectricalPower(12);
+	setBrightness(1.125);
+}
+
+LED::LED(string const& chemicalElement, double forwardVolts, int electricalPower, double brightness) : Diode(chemicalElement, forwardVolts) {
+	setElectricalPower(electricalPower);
+	setBrightness(brightness);
+}
+
+LED::LED(LED const& LED) : Diode(LED) {
+	setElectricalPower(LED.getElectricalPower());
+	setBrightness(LED.getBrightness());
+}
+
+LED::~LED() {
+	cout << "LED Destructor." << endl;
+}
+
+void LED::setElectricalPower(int electricalPowerLED) {
+	electricalPower = electricalPowerLED;
+}
+
+void LED::setBrightness(double brightnessLED) {
+	brightness = brightnessLED;
+}
+
+int LED::getElectricalPower() const {
+	return electricalPower;
+}
+
+double LED::getBrightness() const {
+	return brightness;
+}
+
+void LED::showInfo() {
+	cout << format("LED -> Chemical Element: {}. Forward Volts: {}V. Electrical Power: {}W. Brightness: {}lm.\n", getChemicalElement(), getForwardVolts(), getElectricalPower(), getBrightness());
+}
+
+
+
