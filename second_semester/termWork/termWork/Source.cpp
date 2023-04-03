@@ -67,6 +67,8 @@ public:
 	void setEnergyClass(char const*);
 	char const* getEnergyClass() const;
 
+	void showInfo() override;
+
 private:
 	int lifespan; // lifespan in years. ex. 1 year, 3 years etc...
 	char const* energyClass; // "A", "B", "C", ...,  "F"
@@ -76,7 +78,7 @@ private:
 class Transistor : public Semiconductor {
 public:
 	Transistor();
-	Transistor(string const&, int);
+	Transistor(string const&, string const&);
 	Transistor(Transistor const&);
 	~Transistor();
 
@@ -85,6 +87,8 @@ public:
 
 	void setFunctionality(const string&);
 	string getFunctionality() const;
+
+	void showInfo() override;
 
 private:
 	string type; // bipolar transistors (bipolar junction transistors: BJTs), field-effect transistors (FETs), and insulated-gate bipolar transistors (IGBTs)
@@ -118,6 +122,14 @@ int main() {
 	Semiconductor* LEDPointer;
 	Semiconductor* LEDdiodeCPYPointer;
 
+	Semiconductor* defaultLampTypeLEDPointer;
+	Semiconductor* LampTypeLEDPointer;
+	Semiconductor* LEDLampTypeCPYPointer;
+
+	Semiconductor* defaultTransistorPointer;
+	Semiconductor* transistorPointer;
+	Semiconductor* transistorCPYPointer;
+
 	Diode defaultDiode;
 	Diode diode = Diode("Germanium", 0.3);
 	Diode diodeCPY = Diode(diode);
@@ -126,6 +138,15 @@ int main() {
 	LED LEDdiode = LED("Germanium", 0.3, 12, 1.125);
 	LED LEDdiodeCPY = LED(LEDdiode);
 
+	LampTypeLED defaultLampTypeLED;
+	LampTypeLED lampTypeLED = LampTypeLED("Germanium", 0.4, 15, 1.500, 3, "B");
+	LampTypeLED LEDlampTypeCPY = LampTypeLED(lampTypeLED);
+
+
+	Transistor defaultTransistor;
+	Transistor transistor = Transistor("FET", "control");
+	Transistor transistorCPY = Transistor(transistor);
+
 	defaultDiodePointer = &defaultDiode;
 	diodePointer = &diode;
 	diodeCPYPointer = &diodeCPY;
@@ -133,6 +154,14 @@ int main() {
 	defaultLEDPointer = &defaultLED;
 	LEDPointer = &LEDdiode;
 	LEDdiodeCPYPointer = &LEDdiodeCPY;
+
+	defaultLampTypeLEDPointer = &defaultLampTypeLED;
+	LampTypeLEDPointer = &lampTypeLED;
+	LEDLampTypeCPYPointer = &LEDlampTypeCPY;
+
+	defaultTransistorPointer = &defaultTransistor;
+	transistorPointer = &transistor;
+	transistorCPYPointer = &transistorCPY;
 
 	// Diode showInfo called. At runtime. Virtual fn.
 	defaultDiodePointer->showInfo();
@@ -143,6 +172,16 @@ int main() {
 	defaultLEDPointer->showInfo();
 	LEDPointer->showInfo();
 	LEDdiodeCPYPointer->showInfo();
+
+	// LampTypeLED showInfo called. At runtime. Virtual fn.
+	defaultLampTypeLEDPointer->showInfo();
+	LampTypeLEDPointer->showInfo();
+	LEDLampTypeCPYPointer->showInfo();
+
+	// Transistor showInfo called. At runtime. Virtual fn.
+	defaultTransistorPointer->showInfo();
+	transistorPointer->showInfo();
+	transistorCPYPointer->showInfo();
 }
 
 Semiconductor::~Semiconductor() {
@@ -266,4 +305,46 @@ char const* LampTypeLED::getEnergyClass() const {
 	return energyClass;
 }
 
+void LampTypeLED::showInfo() {
+	cout << format("LampTypeLED -> Chemical Element: {}. Forward Volts: {}V. Electrical Power: {}W. Brightness: {}lm. Lifespan: {} years. Energy class: '{}'.\n", getChemicalElement(), getForwardVolts(), getElectricalPower(), getBrightness(), getLifespan(), getEnergyClass());
+}
 
+
+Transistor::Transistor() {
+	setType("BJT");
+	setFunctionality("amplify");
+}
+
+Transistor::Transistor(string const& type, string const& functionality) {
+	setType(type);
+	setFunctionality(functionality);
+}
+
+Transistor::Transistor(Transistor const& transistor) {
+	setType(transistor.getType());
+	setFunctionality(transistor.getFunctionality());
+}
+
+Transistor::~Transistor() {
+	cout << "Transistor Destructor." << endl;
+}
+
+void Transistor::setType(const string& transistorType) {
+	type = transistorType;
+}
+
+string Transistor::getType() const {
+	return type;
+}
+
+void Transistor::setFunctionality(const string& transistorFunctionality) {
+	functionality = transistorFunctionality;
+}
+
+string Transistor::getFunctionality() const {
+	return functionality;
+}
+
+void Transistor::showInfo() {
+	cout << format("Transistor -> Functionality: {}. Type: {}.\n", getFunctionality(), getType());
+}
