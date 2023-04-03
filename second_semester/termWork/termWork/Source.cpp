@@ -57,19 +57,19 @@ private:
 class LampTypeLED : public LED {
 public:
 	LampTypeLED();
-	LampTypeLED(string const&, int);
+	LampTypeLED(string const&, double, int, double, int, char const*);
 	LampTypeLED(LampTypeLED const&);
-	~LampTypeLED();
+	~LampTypeLED() override;
 
 	void setLifespan(int);
 	int getLifespan() const;
 
-	void setEnergyClass(char);
-	char getEnergyClass() const;
+	void setEnergyClass(char const*);
+	char const* getEnergyClass() const;
 
 private:
 	int lifespan; // lifespan in years. ex. 1 year, 3 years etc...
-	char energyClass; // "A", "B", "C", ...,  "F"
+	char const* energyClass; // "A", "B", "C", ...,  "F"
 
 };
 
@@ -144,7 +144,6 @@ int main() {
 	LEDPointer->showInfo();
 	LEDdiodeCPYPointer->showInfo();
 }
-
 
 Semiconductor::~Semiconductor() {
 	cout << "Semiconductor Destructor" << endl;
@@ -232,5 +231,39 @@ void LED::showInfo() {
 	cout << format("LED -> Chemical Element: {}. Forward Volts: {}V. Electrical Power: {}W. Brightness: {}lm.\n", getChemicalElement(), getForwardVolts(), getElectricalPower(), getBrightness());
 }
 
+LampTypeLED::LampTypeLED() : LED::LED() {
+	setLifespan(5);
+	setEnergyClass("A");
+}
+
+LampTypeLED::LampTypeLED(string const& chemicalElement, double forwardVolts, int electricalPower, double brightness, int lifespan, char const* energyClass) : LED::LED(chemicalElement, forwardVolts, electricalPower, brightness) {
+	setLifespan(lifespan);
+	setEnergyClass(energyClass);
+}
+
+LampTypeLED::LampTypeLED(LampTypeLED const& lampTypeLED) : LED::LED(lampTypeLED) {
+	setLifespan(lampTypeLED.getLifespan());
+	setEnergyClass(lampTypeLED.getEnergyClass());
+}
+
+LampTypeLED::~LampTypeLED() {
+	cout << "LampTypeLED Destructor" << endl;
+}
+
+void LampTypeLED::setLifespan(int lifespanLampTypeLED) {
+	lifespan = lifespanLampTypeLED;
+}
+
+int LampTypeLED::getLifespan() const {
+	return lifespan;
+}
+
+void LampTypeLED::setEnergyClass(char const* energyClassLampTypeLED) {
+	energyClass = energyClassLampTypeLED;
+}
+
+char const* LampTypeLED::getEnergyClass() const {
+	return energyClass;
+}
 
 
