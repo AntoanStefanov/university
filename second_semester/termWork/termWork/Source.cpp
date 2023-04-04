@@ -113,6 +113,39 @@ private:
 	double Imax; // The usual current rating of SCRs is from about 30 A to 100 A. /not sure/.
 };
 
+class SinglyLinkedList {
+private:
+	class Node {
+	public:
+		Node(Semiconductor* device) : device(device) {}
+		Node(Semiconductor* device, Node* next) : device(device), next(next) {}
+		Semiconductor* device = nullptr;
+		Node* next = nullptr;
+	};
+	Node* tail = nullptr;
+	Node* head = nullptr;
+
+public:
+	void append(Semiconductor* device) {
+		Node* newTail = new Node(device);
+		if (tail == nullptr) {
+			tail = newTail;
+			head = newTail;
+			return;
+		}
+		tail->next = newTail;
+		tail = newTail;
+	}
+
+	void print() const {
+		Node* node = head;
+		while (node != nullptr) {
+			cout << node << endl;
+			node = node->next;
+		}
+	}
+};
+
 int main() {
 	Semiconductor* defaultDiodePointer;
 	Semiconductor* diodePointer;
@@ -174,7 +207,6 @@ int main() {
 	thyristorPointer = &thyristor;
 	thyristorCPYPointer = &thyristorCPY;
 
-
 	// static array
 	Transistor arr[3];
 
@@ -217,6 +249,14 @@ int main() {
 	defaultThyristorPointer->showInfo();
 	thyristorPointer->showInfo();
 	thyristorCPYPointer->showInfo();
+
+	SinglyLinkedList list;
+	list.append(defaultDiodePointer);
+	list.append(defaultLEDPointer);
+	list.append(defaultLampTypeLEDPointer);
+	list.append(defaultTransistorPointer);
+	list.append(defaultThyristorPointer);
+	list.print();
 }
 
 Semiconductor::~Semiconductor() {
@@ -422,5 +462,3 @@ double Thyristor::getImax() const {
 void Thyristor::showInfo() {
 	cout << "Thyristor -> MODE: " << getMode() << ". Imax: " << getImax() << "A.\n";
 }
-
-// replace "format" with "cout".
