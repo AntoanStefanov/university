@@ -80,7 +80,7 @@ public:
 	Transistor();
 	Transistor(string const&, string const&);
 	Transistor(Transistor const&);
-	~Transistor();
+	~Transistor() override;
 
 	void setType(const string&);
 	string getType() const;
@@ -98,15 +98,17 @@ private:
 class Thyristor : public Semiconductor {
 public:
 	Thyristor();
-	Thyristor(string const&, int);
+	Thyristor(string const&, double);
 	Thyristor(Thyristor const&);
-	~Thyristor();
+	~Thyristor() override;
 
 	void setMode(const string&);
 	string getMode() const;
 
 	void setImax(double);
 	double getImax() const;
+
+	void showInfo() override;
 
 private:
 	string mode; // "ON" or "OFF", check if input is valid.
@@ -347,4 +349,43 @@ string Transistor::getFunctionality() const {
 
 void Transistor::showInfo() {
 	cout << format("Transistor -> Functionality: {}. Type: {}.\n", getFunctionality(), getType());
+}
+
+Thyristor::Thyristor() {
+	setMode("OFF");
+	setImax(30.5);
+}
+
+Thyristor::Thyristor(string const& mode, double Imax) {
+	setMode(mode);
+	setImax(Imax);
+}
+
+Thyristor::Thyristor(Thyristor const& thyristor) {
+	setMode(thyristor.getMode());
+	setImax(thyristor.getImax());
+}
+
+Thyristor::~Thyristor() {
+	cout << "Thyristor Destructor." << endl;
+}
+
+void Thyristor::setMode(const string& thyristorMode) {
+	mode = thyristorMode;
+}
+
+string Thyristor::getMode() const {
+	return mode;
+}
+
+void Thyristor::setImax(double thyristorImax) {
+	Imax = thyristorImax;
+}
+
+double Thyristor::getImax() const {
+	return Imax;
+}
+
+void Thyristor::showInfo() {
+	cout << format("Thyristor -> MODE: {}. Imax: {}.\n", getMode(), getImax());
 }
