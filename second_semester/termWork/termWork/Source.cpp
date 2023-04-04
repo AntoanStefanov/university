@@ -1,10 +1,8 @@
 #include <iostream>
-#include <format>
 
 using std::string;
 using std::cout;
 using std::endl;
-using std::format;
 
 // Abstract class / Interface
 class Semiconductor {
@@ -177,6 +175,24 @@ int main() {
 	thyristorCPYPointer = &thyristorCPY;
 
 
+	// static arr
+	Transistor arr[3];
+
+	for (int i = 0; i < 3; i++) {
+		arr[i].showInfo();
+	}
+
+	// dynamic arr
+	Diode* arrPointer;
+	arrPointer = new Diode[3];
+
+	for (int i = 0; i < 3; i++) {
+		arrPointer->showInfo();
+	}
+
+	delete[] arrPointer;
+
+
 	// Diode showInfo called. At runtime. Virtual fn.
 	defaultDiodePointer->showInfo();
 	diodePointer->showInfo();
@@ -247,7 +263,7 @@ double Diode::getForwardVolts() const {
 }
 
 void Diode::showInfo() {
-	cout << format("Diode -> Chemical Element: {}. Forward Volts: {}V.\n", getChemicalElement(), getForwardVolts());
+	cout << "Diode -> Chemical Element: " << getChemicalElement() << ". Forward Volts: " << getForwardVolts() << "V.\n";
 }
 
 LED::LED() : Diode() {
@@ -286,7 +302,7 @@ double LED::getBrightness() const {
 }
 
 void LED::showInfo() {
-	cout << format("LED -> Chemical Element: {}. Forward Volts: {}V. Electrical Power: {}W. Brightness: {}lm.\n", getChemicalElement(), getForwardVolts(), getElectricalPower(), getBrightness());
+	cout << "LED -> Chemical Element: " << getChemicalElement() << ". Forward Volts: " << getForwardVolts() << "V. Electrical Power: " << getElectricalPower() << "W.Brightness: " << getBrightness() << "lm.\n";
 }
 
 LampTypeLED::LampTypeLED() : LED::LED() {
@@ -325,7 +341,7 @@ char const* LampTypeLED::getEnergyClass() const {
 }
 
 void LampTypeLED::showInfo() {
-	cout << format("LampTypeLED -> Chemical Element: {}. Forward Volts: {}V. Electrical Power: {}W. Brightness: {}lm. Lifespan: {} years. Energy class: '{}'.\n", getChemicalElement(), getForwardVolts(), getElectricalPower(), getBrightness(), getLifespan(), getEnergyClass());
+	cout << "LampTypeLED -> Chemical Element: " << getChemicalElement() << ". Forward Volts: " << getForwardVolts() << "V.Electrical Power: " << getElectricalPower() << "W.Brightness: " << getBrightness() << "lm.Lifespan: " << getLifespan() << " years. Energy class: " << "'" << getEnergyClass() << "'" << ".\n";
 }
 
 
@@ -365,7 +381,7 @@ string Transistor::getFunctionality() const {
 }
 
 void Transistor::showInfo() {
-	cout << format("Transistor -> Functionality: {}. Type: {}.\n", getFunctionality(), getType());
+	cout << "Transistor -> Functionality: " << getFunctionality() << ". Type: " << getType() << ".\n";
 }
 
 Thyristor::Thyristor() {
@@ -404,7 +420,7 @@ double Thyristor::getImax() const {
 }
 
 void Thyristor::showInfo() {
-	cout << format("Thyristor -> MODE: {}. Imax: {}A.\n", getMode(), getImax());
+	cout << "Thyristor -> MODE: " << getMode() << ". Imax: " << getImax() << "A.\n";
 }
 
 // replace "format" with "cout".
