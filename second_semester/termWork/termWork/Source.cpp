@@ -140,8 +140,18 @@ public:
 	void print() const {
 		Node* node = head;
 		while (node != nullptr) {
-			cout << node << endl;
+			cout << "Singly Linked List Node: " << endl;
+			node->device->showInfo();
 			node = node->next;
+		}
+	}
+
+	void deleteList() {
+		Node* node = head;
+		while (node != nullptr) {
+			Node* delNode = node;
+			node = node->next;
+			delete delNode;
 		}
 	}
 };
@@ -257,6 +267,7 @@ int main() {
 	list.append(defaultTransistorPointer);
 	list.append(defaultThyristorPointer);
 	list.print();
+	list.deleteList();
 }
 
 Semiconductor::~Semiconductor() {
