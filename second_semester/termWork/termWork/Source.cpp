@@ -126,34 +126,9 @@ private:
 	Node* head = nullptr;
 
 public:
-	void append(Semiconductor* device) {
-		Node* newTail = new Node(device);
-		if (tail == nullptr) {
-			tail = newTail;
-			head = newTail;
-			return;
-		}
-		tail->next = newTail;
-		tail = newTail;
-	}
-
-	void print() const {
-		Node* node = head;
-		while (node != nullptr) {
-			cout << "Singly Linked List Node: " << endl;
-			node->device->showInfo();
-			node = node->next;
-		}
-	}
-
-	void deleteList() {
-		Node* node = head;
-		while (node != nullptr) {
-			Node* delNode = node;
-			node = node->next;
-			delete delNode;
-		}
-	}
+	void append(Semiconductor*);
+	void print() const;
+	void deleteList();
 };
 
 int main() {
@@ -274,9 +249,9 @@ Semiconductor::~Semiconductor() {
 	cout << "Semiconductor Destructor" << endl;
 }
 
-void Semiconductor::showInfo() {
-	cout << "Semiconductor -> showInfo." << endl;
-}
+//void Semiconductor::showInfo() {
+//	cout << "Semiconductor -> showInfo." << endl;
+//}
 
 Diode::Diode() {
 	setChemicalElement("Silicon");
@@ -472,4 +447,33 @@ double Thyristor::getImax() const {
 
 void Thyristor::showInfo() {
 	cout << "Thyristor -> MODE: " << getMode() << ". Imax: " << getImax() << "A.\n";
+}
+
+void SinglyLinkedList::append(Semiconductor* device) {
+	Node* newTail = new Node(device);
+	if (tail == nullptr) {
+		tail = newTail;
+		head = newTail;
+		return;
+	}
+	tail->next = newTail;
+	tail = newTail;
+}
+
+void SinglyLinkedList::print() const {
+	Node* node = head;
+	while (node != nullptr) {
+		cout << "Singly Linked List Node: " << endl;
+		node->device->showInfo();
+		node = node->next;
+	}
+}
+
+void SinglyLinkedList::deleteList() {
+	Node* node = head;
+	while (node != nullptr) {
+		Node* delNode = node;
+		node = node->next;
+		delete delNode;
+	}
 }
