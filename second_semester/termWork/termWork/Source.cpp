@@ -175,19 +175,19 @@ int main() {
 	thyristorCPYPointer = &thyristorCPY;
 
 
-	// static arr
+	// static array
 	Transistor arr[3];
 
 	for (int i = 0; i < 3; i++) {
 		arr[i].showInfo();
 	}
 
-	// dynamic arr
+	// dynamic array
 	Diode* arrPointer;
 	arrPointer = new Diode[3];
 
 	for (int i = 0; i < 3; i++) {
-		arrPointer->showInfo();
+		(arrPointer + i)->showInfo();
 	}
 
 	delete[] arrPointer;
