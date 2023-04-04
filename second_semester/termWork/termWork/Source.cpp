@@ -132,6 +132,10 @@ int main() {
 	Semiconductor* transistorPointer;
 	Semiconductor* transistorCPYPointer;
 
+	Semiconductor* defaultThyristorPointer;
+	Semiconductor* thyristorPointer;
+	Semiconductor* thyristorCPYPointer;
+
 	Diode defaultDiode;
 	Diode diode = Diode("Germanium", 0.3);
 	Diode diodeCPY = Diode(diode);
@@ -144,10 +148,13 @@ int main() {
 	LampTypeLED lampTypeLED = LampTypeLED("Germanium", 0.4, 15, 1.500, 3, "B");
 	LampTypeLED LEDlampTypeCPY = LampTypeLED(lampTypeLED);
 
-
 	Transistor defaultTransistor;
 	Transistor transistor = Transistor("FET", "control");
 	Transistor transistorCPY = Transistor(transistor);
+
+	Thyristor defaultThyristor;
+	Thyristor thyristor = Thyristor("ON", 40.5);
+	Thyristor thyristorCPY = Thyristor(thyristor);
 
 	defaultDiodePointer = &defaultDiode;
 	diodePointer = &diode;
@@ -164,6 +171,11 @@ int main() {
 	defaultTransistorPointer = &defaultTransistor;
 	transistorPointer = &transistor;
 	transistorCPYPointer = &transistorCPY;
+
+	defaultThyristorPointer = &defaultThyristor;
+	thyristorPointer = &thyristor;
+	thyristorCPYPointer = &thyristorCPY;
+
 
 	// Diode showInfo called. At runtime. Virtual fn.
 	defaultDiodePointer->showInfo();
@@ -184,6 +196,11 @@ int main() {
 	defaultTransistorPointer->showInfo();
 	transistorPointer->showInfo();
 	transistorCPYPointer->showInfo();
+
+	// Thyristor showInfo called. At runtime. Virtual fn.
+	defaultThyristorPointer->showInfo();
+	thyristorPointer->showInfo();
+	thyristorCPYPointer->showInfo();
 }
 
 Semiconductor::~Semiconductor() {
@@ -387,5 +404,7 @@ double Thyristor::getImax() const {
 }
 
 void Thyristor::showInfo() {
-	cout << format("Thyristor -> MODE: {}. Imax: {}.\n", getMode(), getImax());
+	cout << format("Thyristor -> MODE: {}. Imax: {}A.\n", getMode(), getImax());
 }
+
+// replace "format" with "cout".
