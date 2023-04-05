@@ -17,7 +17,7 @@ public:
 	void setForwardVolts(double);
 	double getForwardVolts() const;
 
-	void showInfo() override; // same as "virtual void showInfo()"
+	void showInfo() override;
 
 private:
 	string chemicalElement; // silicon, germanium, etc...

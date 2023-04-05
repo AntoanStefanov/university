@@ -6,7 +6,6 @@
 #include "thyristor.h"
 #include "singlyLinkedList.h"
 
-
 #include <iostream>
 
 using std::string;
@@ -14,6 +13,8 @@ using std::cout;
 using std::endl;
 
 int main() {
+	// SINGLY LINKED LIST AT THE END.
+
 	Semiconductor* defaultDiodePointer;
 	Semiconductor* diodePointer;
 	Semiconductor* diodeCPYPointer;
@@ -74,24 +75,6 @@ int main() {
 	thyristorPointer = &thyristor;
 	thyristorCPYPointer = &thyristorCPY;
 
-	// static array
-	Transistor arr[3];
-
-	for (int i = 0; i < 3; i++) {
-		arr[i].showInfo();
-	}
-
-	// dynamic array
-	Diode* arrPointer;
-	arrPointer = new Diode[3];
-
-	for (int i = 0; i < 3; i++) {
-		(arrPointer + i)->showInfo();
-	}
-
-	delete[] arrPointer;
-
-
 	// Diode showInfo called. At runtime. Virtual fn.
 	defaultDiodePointer->showInfo();
 	diodePointer->showInfo();
@@ -117,7 +100,27 @@ int main() {
 	thyristorPointer->showInfo();
 	thyristorCPYPointer->showInfo();
 
+	// static array
+	Transistor arr[3];
+
+	for (int i = 0; i < 3; i++) {
+		arr[i].showInfo();
+	}
+
+	// dynamic array
+	Diode* arrPointer;
+	arrPointer = new Diode[3];
+
+	for (int i = 0; i < 3; i++) {
+		(arrPointer + i)->showInfo();
+	}
+
+	delete[] arrPointer;
+
+	// Singly Linked List.
+
 	SinglyLinkedList list;
+
 	list.append(defaultDiodePointer);
 	list.append(defaultLEDPointer);
 	list.append(defaultLampTypeLEDPointer);
