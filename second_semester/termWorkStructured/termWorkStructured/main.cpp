@@ -129,5 +129,24 @@ int main() {
 	list.print();
 	list.deleteList();
 
+
+	// static arr
+	Diode staticArr[3];
+	for (int i = 0; i < 3; i++)
+	{
+		staticArr[i].showInfo();
+	}
+
+	// dynamic arr
+	Diode* dynamicArrPointer;
+	dynamicArrPointer = new Diode[3]; // point to first diode of the new diodes' array.
+
+	for (int i = 0; i < 3; i++)
+	{
+		(dynamicArrPointer + i)->showInfo();
+	}
+
+	delete[] dynamicArrPointer;
+
 	return 0;
 }
